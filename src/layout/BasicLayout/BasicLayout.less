@@ -1,0 +1,23 @@
+@import "~@/util/util.less";
+
+.basicLayout {
+	padding-top: 6rem;
+	min-height: 100%;
+	&.onePage {
+		display: flex;
+		height: 100%;
+		flex-direction: column;
+		.childrenContainer {
+			flex: 1;
+		}
+	}
+
+	.childrenContainer {
+	}
+}
+
+@media (min-width: @screen-lg) {
+	.basicLayout {
+		padding-top: 7.5625rem;
+	}
+}

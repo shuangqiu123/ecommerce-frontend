@@ -1,0 +1,26 @@
+@import "~@/util/util.less";
+
+.footer {
+	padding: 20px 0;
+	border-top: 1px solid rgba(30,35,42,.06);
+	box-shadow: 0 4px 5px 5px rgb(0 0 0 / 5%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.text {
+		font-family: Gotham Book;
+		font-size: 16px;
+	}
+
+	.icons {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 1400px) {
+	.footer .text {
+		position: static;
+	}
+}

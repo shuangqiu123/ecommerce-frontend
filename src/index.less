@@ -1,0 +1,49 @@
+@default-color: #313131;
+
+html {
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+html body {
+	height: 100%;
+	width: 100%;
+	font-family: fonto;
+	line-height: 1.25;
+	letter-spacing: .025rem;
+	box-sizing: border-box;
+}
+
+.font-normal {
+	color: @default-color;
+}
+
+.font-bold {
+	color: @default-color;
+	font-weight: 700;
+}
+
+.font-light {
+	color: grey;
+}
+
+.font-slim {
+	color: @default-color;
+	font-family: Montserrat, sans-serif;
+}
+
+@font-face {
+	font-family: 'fonto';
+	src: url('/src/asset/font/o-400.woff2') format('woff2'),
+		 url('/src/asset/font/o-600.woff2') format('woff2'),
+		 url('/src/asset/font/o-700.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'fontm';
+	src: url('/src/asset/font/m-400.woff2') format('woff2'),
+		 url('/src/asset/font/m-500.woff2') format('woff2'),
+		 url('/src/asset/font/m-600.woff2') format('woff2');
+}

@@ -1,0 +1,30 @@
+@import "~@/util/util.less";
+
+.squareButton {
+	background: rgba(255, 255, 255, 1);
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 4px;
+	font-family: Gotham Medium;
+	font-size: 23px;
+	color: @grey1;
+	border: transparent;
+}
+
+.squareButton:hover {
+	animation: buttonHoverAnimation 1s ease 0s 1;
+	background: rgba(0, 0, 0, 0.15);
+}
+
+.squareButton:focus {
+	outline: none;
+}
+
+@keyframes buttonHoverAnimation {
+	from {
+		background: #ffffff;
+	}
+	to {
+		background: rgba(0, 0, 0, 0.15);
+	}
+}

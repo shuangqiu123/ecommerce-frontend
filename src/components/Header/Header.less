@@ -1,0 +1,108 @@
+@import "~@/util/util.less";
+
+.headerWrapper {
+	position: relative;
+    z-index: 100;
+}
+
+.headerContainer {
+	width: 100%;
+
+	.topHeader {
+		background-color: @beige;
+		color: @default-color;
+		font-weight: 600;
+		display: flex;
+		justify-content: center;
+		flex-wrap: nowrap;
+
+		.topHeaderContainer {
+			flex: 1;
+			max-width: 80rem;
+			padding-left: 1.1rem;
+			padding-right: 1.1rem;
+
+			.topHeaderItemContainer {
+				display: flex;
+				justify-content: end;
+				align-items: center;
+				.topHeaderItem {
+					margin-right: 2rem;
+					font-size: 0.9rem;
+					color: #1c1c1c;
+				}
+
+				.topHeaderIcon {
+					font-size: 1.5rem;
+					margin-right: 2rem;
+					padding: 0.5rem;
+				}
+			}
+		}
+	}
+
+	.bottomHeader {
+		border-bottom: 1px solid #e6e6e6;
+		display: flex;
+		justify-content: center;
+		flex-wrap: nowrap;
+
+		.bottomHeaderContainer {
+			flex: 1;
+			display: flex;
+			align-items: flex-end;
+			max-width: 80rem;
+			padding: 0 2rem;
+
+			.logo {
+				margin: 1rem 4rem 1rem 0;
+			}
+	
+			.nameList {
+				display: flex;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				font-weight: 600;
+				
+				.nameItem {
+					margin-right: 1rem;
+					letter-spacing: 0.05em;
+
+					.nameItemAnchor {
+						display: block;
+						padding: 18px 7px;
+						color: #1c1c1c;
+						font-family: fontm;
+					}
+
+					.nameItemAnchor:hover {
+						border-bottom: 2px solid @default-color;
+						margin-bottom: -2px;
+					}
+				}
+			}
+		}
+	}
+
+	@media (max-width: @screen-lg) {
+		.topHeader {
+			display: none;
+		}
+	}
+}
+
+.sticky {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	transform: translateY(0%);
+	transition: transform 200ms linear;
+
+	&.unpinned {
+		transform: translateY(-100%);
+	}
+}
+

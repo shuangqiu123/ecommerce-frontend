@@ -1,0 +1,71 @@
+{
+	"name": "eportfolio",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@ant-design/icons": "^4.0.0",
+		"@craco/craco": "^6.2.0",
+		"@testing-library/jest-dom": "^5.14.1",
+		"@testing-library/react": "^11.2.7",
+		"@testing-library/user-event": "^12.8.3",
+		"@types/jest": "^26.0.24",
+		"@types/node": "^12.20.21",
+		"@types/react": "^17.0.19",
+		"@types/react-dom": "^17.0.9",
+		"antd": "^4.12.0",
+		"antd-dayjs-webpack-plugin": "^1.0.6",
+		"axios": "^0.21.1",
+		"circular-dependency-plugin": "^5.2.2",
+		"compression-webpack-plugin": "^6.0.5",
+		"craco-antd": "^1.19.0",
+		"craco-less": "^1.20.0",
+		"craco-vtk": "^1.0.2",
+		"dayjs": "^1.10.6",
+		"less": "^2.7.3",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-redux": "^7.2.4",
+		"react-router-dom": "^5.2.1",
+		"react-scripts": "4.0.3",
+		"redux": "^4.1.1",
+		"redux-saga": "^1.1.3",
+		"simple-progress-webpack-plugin": "^2.0.0",
+		"stylelint": "^13.13.1",
+		"stylelint-config-standard": "^22.0.0",
+		"terser-webpack-plugin": "^4.2.3",
+		"typescript": "^4.3.1",
+		"web-vitals": "^1.1.2",
+		"webpack-bundle-analyzer": "^4.4.2",
+		"webpack-dashboard": "^3.3.5",
+		"webpackbar": "^5.0.0-3"
+	},
+	"scripts": {
+		"start": "craco start",
+		"build": "craco build",
+		"test": "craco test",
+		"lint": "npm run lint:js && npm run lint:style",
+		"lint:js": "eslint --cache --max-warnings=0 --ext .js,.jsx,.ts,.tsx ./src",
+		"lint:fix": "eslint --cache --fix --ext .js,.jsx,.ts,.tsx ./src",
+		"lint:style": "stylelint \"src/**/*.less\" --syntax less",
+		"lint:style-fix": "stylelint --fix \"src/**/*.less\" --syntax less",
+		"eject": "react-scripts eject"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@babel/plugin-proposal-decorators": "^7.15.4",
+		"@types/react-router-dom": "^5.1.8",
+		"install": "^0.13.0",
+		"npm": "^7.22.0"
+	}
+}
