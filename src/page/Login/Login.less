@@ -1,10 +1,29 @@
 @import "~@/util/util.less" ;
 
-.otherlink {
-	width: 100%;
+.linkContainer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.link {
 	text-align: right;
-	a {
-		color: #000;
-		font-size: 14px;
+	text-decoration: underline;
+	color: grey;
+}
+
+.link:hover {
+	color: #313131;
+	text-decoration: underline;
+}
+
+.bottomContainer {
+	width: 100%;
+	padding: 2rem 0;
+	margin-top: 2rem;
+	border-top: 0.0625rem solid #e5e5e5;
+	text-align: center;
+
+	.boldText {
+		font-weight: 600;
 	}
 }
