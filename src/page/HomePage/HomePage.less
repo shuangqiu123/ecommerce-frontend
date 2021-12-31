@@ -1,1 +1,77 @@
 @import "~@/util/util.less";
+
+.homePageContainer {
+	min-height: 100%;
+	padding: 1rem 1rem;
+	max-width: 80rem;
+	margin: 0 auto;
+
+	.main {
+		display: flex;
+		margin-top: 1rem;
+		width: 100%;
+		.nav {
+			padding-top: 2.2rem;
+			flex-basis: 12rem;
+			flex-shrink: 0;
+			padding-right: 2rem;
+		}
+
+		.itemWrapper {
+			flex-grow: 1;
+			.title {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				
+				h1 {
+					font-family: fontm;
+					font-size: 1.5rem;
+				}
+				.titleRight {
+					display: flex;
+					align-items: center;
+					height: 2rem;
+
+					.itemPlaceHolder {
+						display: block;
+						font-size: 0.75rem;
+						color: grey;
+						padding-right: 2rem;
+					}
+				}
+			}
+
+			.itemContainer {
+				display: flex;
+				flex-wrap: wrap;
+				margin: 1rem 0;
+			}
+		}
+	}
+
+	@media (max-width: @screen-sm) {
+		.main .itemWrapper .title {
+			display: block;
+		}
+	}
+
+	@media (max-width: @screen-xs) {
+		.itemContainer {
+			justify-content: center;
+		}
+	}
+
+	@media (max-width: @screen-md) {
+		width: 100%;
+		padding: 1rem 2rem;
+		.main {
+			.nav {
+				display: none;
+			}
+		}
+	}
+
+	@media (max-width: @screen-lg) {
+	}
+}
