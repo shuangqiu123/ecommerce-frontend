@@ -9,6 +9,7 @@ interface IBasicLayoutProps {
 }
 
 const BasicLayout: React.FC<IBasicLayoutProps> = ({onePage, children}) => {
+
 	return (
 		<div className={classnames(styles.basicLayout, onePage ? styles.onePage : "")}>
 			<Header />

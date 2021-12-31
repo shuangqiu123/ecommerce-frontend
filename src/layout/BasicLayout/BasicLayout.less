@@ -9,14 +9,25 @@
 		flex-direction: column;
 		.childrenContainer {
 			flex: 1;
+			padding-top: 1rem;
+    		padding-bottom: 1rem;
+			min-height: 0;
 		}
 	}
 
 	.childrenContainer {
+		min-height: 100%;
+	}
+
+	@media (max-width: @screen-sm) {
+		width: 100%;
+		.childrenContainer {
+			width: 100%;
+		}
 	}
 }
 
-@media (min-width: @screen-lg) {
+@media (min-width: @screen-md) {
 	.basicLayout {
 		padding-top: 7.5625rem;
 	}
