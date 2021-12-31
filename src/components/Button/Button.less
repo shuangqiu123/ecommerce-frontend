@@ -2,18 +2,28 @@
 
 .squareButton {
 	background: rgba(255, 255, 255, 1);
-	padding: 10px 20px;
+	padding: 0.8rem 2.5rem;
 	cursor: pointer;
 	border-radius: 4px;
-	font-family: Gotham Medium;
-	font-size: 23px;
-	color: @grey1;
-	border: transparent;
+	font-family: fontm;
+	font-weight: 600;
+	font-size: 1rem;
+	border: 0.0625rem solid #e5e5e5;
+
+	&.reverse {
+		background: #313131;
+		color:rgba(255, 255, 255, 1);
+	}
 }
 
 .squareButton:hover {
 	animation: buttonHoverAnimation 1s ease 0s 1;
 	background: rgba(0, 0, 0, 0.15);
+
+	&.reverse {
+		animation: none;
+		background: #313131;
+	}
 }
 
 .squareButton:focus {

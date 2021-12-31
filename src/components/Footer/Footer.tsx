@@ -10,7 +10,7 @@ const Footer: React.FC = () => (
 		<div className={styles.text}>
 			<p>©Maintained by Shuang Qiu</p>
 			<div className={styles.icons}>
-				<Icon title="Github" href="https://github.com/shuangqiu123/eportfolio">
+				<Icon title="Github" href="https://github.com/shuangqiu123/ecommerce">
 					<GithubOutlined />
 				</Icon>
 				<Icon title="Shuang's Blog" href="https://shuangqiu.blog">

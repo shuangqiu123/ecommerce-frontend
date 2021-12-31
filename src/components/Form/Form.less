@@ -2,17 +2,21 @@
 
 .formContainer {
 	display: flex;
-	width: 500px;
+	max-width: 25rem;
 	margin: 0 auto;
 	height: 100%;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	padding: 1rem 0;
 
 	.title {
-		font-size: 50px;
-		font-family: Gotham Medium;
-		color: @grey2;
+		font-size: 3rem;
+		font-family: fontm;
+		font-weight: 500;
+		padding-bottom: 1rem;
+		margin-bottom: 0;
+		border-bottom: 2px solid #313131;
 	}
 
 	.text {
@@ -27,14 +31,42 @@
 	}
 
 	:global {
+		.ant-form {
+			width: 100%;
+		}
 		.ant-form-item-explain-error {
 			color: red;
+		}
+		.ant-input {
+			height: 2.5rem;
+			border: 0.0625rem solid #e5e5e5;
+		}
+
+		.ant-input:focus {
+			box-shadow: none;
+			border: 0.0625rem solid #313131;
+		}
+
+		.ant-checkbox-checked .ant-checkbox-inner {
+			background-color: #313131;
+			border-color: #313131;
+		}
+		.ant-checkbox-wrapper .ant-checkbox:hover .ant-checkbox-inner,
+		.ant-checkbox-wrapper:hover .ant-checkbox .ant-checkbox-inner,
+		.ant-checkbox-checked::after {
+			box-shadow: none;
+			border-color: #313131;
+		}
+
+		.ant-row.ant-form-item {
+			margin-top: 1.5rem;
 		}
 	}
 }
 
-@media (max-width: @screen-md) {
+@media (max-width: @screen-sm) {
 	.formContainer {
-		width: 300px;
+		max-width: 100%;
+		padding: 1rem 3rem;
 	}
 }

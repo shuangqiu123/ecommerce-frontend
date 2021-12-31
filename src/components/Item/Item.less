@@ -1,0 +1,58 @@
+@import "~@/util/util.less";
+.item {
+	margin: 0.5rem 0.4rem;
+	padding: 0.2rem 0.3rem;
+	text-align: left;
+	border: 1px solid rgba(128, 128, 128, 0.126);
+	.image {
+		width: 100%;
+		margin-bottom: 0.5rem;
+	}
+	.title {
+		letter-spacing: .025rem;
+		font-size: 0.8rem;
+	}
+	.price {
+		font-weight: 700;
+		font-size: 0.9rem;
+	}
+	.description {
+		color: grey;
+		font-size: 0.8rem;
+	}
+	.icons {
+		float: right;
+		z-index: 1;
+		.icon {
+			font-size: 1.4rem;
+			margin: 0.1rem 0.2rem;
+		}
+	}
+	.click {
+		cursor: pointer;
+	}
+}
+
+@media (min-width: @screen-lg) {
+	.itemContainer {
+		flex-basis: 25%;
+	}
+}
+
+@media (max-width: @screen-lg) {
+	.itemContainer {
+		flex-basis: 33%;
+	}
+}
+
+@media (max-width: @screen-sm) {
+	.itemContainer {
+		flex-basis: 50%;
+	}
+}
+
+@media (max-width: @screen-xs) {
+	.itemContainer {
+		flex-basis: 80%;
+	}
+}
