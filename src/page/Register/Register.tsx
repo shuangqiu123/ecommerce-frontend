@@ -5,10 +5,13 @@ import { Form as AntForm, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import styles from "./Register.less";
-import TagInput from "@/components/TagInput";
 import { IUserPostRequest } from "@/interface/User";
 import { EUserActionTypes } from "@/common/User";
 import { useHistory } from "react-router";
+import Button from "@/components/Button";
+import { EOAuthActionTypes } from "@/common/OAuth";
+import GoogleOutlined from "@ant-design/icons/GoogleOutlined";
+import Icon from "@/components/Icon";
 
 interface IRegisterProps {
 	userName: string;
@@ -34,6 +37,15 @@ const Register: React.FC<IRegisterProps> = ({
 		}
 	}, [history, userName, email]);
 
+	const googleOnClick = () => {
+		dispatch({
+			type: EOAuthActionTypes.googleSignIn,
+			callback: (url: string) => {
+				window.location.href = url;
+			}
+		});
+	};
+
 	const onSubmit = () => {
 		form.validateFields().then(value => {
 			const payload: IUserPostRequest = oauthSignUp ? {
@@ -58,7 +70,6 @@ const Register: React.FC<IRegisterProps> = ({
 		<BasicLayout onePage={true}>
 			<Form
 				title={email.length > 0 ? "Finish your sign up" : "Sign Up"}
-				onSubmit={onSubmit}
 			>
 				<AntForm
 					layout={"vertical"}
@@ -66,16 +77,20 @@ const Register: React.FC<IRegisterProps> = ({
 					validateTrigger="onFinish"
 				>
 					{!oauthSignUp && <AntForm.Item
-						label="Your name"
-						name="name"
+						label="Email"
+						name="email"
 						className={styles.formItem}
 						rules={[
-							{ required: true, message: "Please enter a name" },
+							{ required: true, message: "Please enter an email" },
+							{
+								pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+								message: "Incorrect Email Format"
+							}
 						]}
 					>
 						<Input
 							className={styles.input}
-							placeholder="Enter your name"
+							placeholder="Enter your Email"
 						/>
 					</AntForm.Item>}
 					<AntForm.Item
@@ -96,23 +111,6 @@ const Register: React.FC<IRegisterProps> = ({
 							placeholder="Enter your username"
 						/>
 					</AntForm.Item>
-					{!oauthSignUp && <AntForm.Item
-						label="Email"
-						name="email"
-						className={styles.formItem}
-						rules={[
-							{ required: true, message: "Please enter an email" },
-							{
-								pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-								message: "Incorrect Email Format"
-							}
-						]}
-					>
-						<Input
-							className={styles.input}
-							placeholder="Enter your Email"
-						/>
-					</AntForm.Item>}
 					<AntForm.Item
 						label="Password"
 						name="password"
@@ -132,14 +130,16 @@ const Register: React.FC<IRegisterProps> = ({
 							type="password"
 						/>
 					</AntForm.Item>
-					<AntForm.Item
-						label="Tags"
-						name="tags"
-						className={styles.formItem}
-					>
-						<TagInput />
-					</AntForm.Item>
 				</AntForm>
+				<Button name="CREATE ACCOUNT" onClick={onSubmit} reverse />
+				<div className={styles.bottomContainer}>
+					<p className={styles.text}>Or you can sign up with:</p>
+					<div className={styles.iconContainer} onClick={googleOnClick}>
+						<Icon title="google">
+							<GoogleOutlined />
+						</Icon>
+					</div>
+				</div>
 			</Form>
 			
 		</BasicLayout>
