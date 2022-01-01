@@ -1,0 +1,41 @@
+.errorContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 80%;
+	flex-wrap: wrap;
+
+	.title {
+		display: block;
+		margin: 3rem auto;
+		text-align: center;
+		letter-spacing: 2px;
+		font-size: 9rem;
+		line-height: 1;
+		color: #f35626;
+		background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		-webkit-animation: hue 60s infinite linear;
+		animation: hue 60s infinite linear;
+		background-clip: text;
+	}
+	.description {
+		font-family: fontm;
+		font-size: 1.5rem;
+		margin-bottom: 3rem;
+		text-align: center;
+	}
+	.button {
+		text-align: center;
+	}
+}
+
+@keyframes hue {
+	0% {
+		-webkit-filter: hue-rotate(0deg);
+	}
+	100% {
+		-webkit-filter: hue-rotate(-360deg);
+	}
+}

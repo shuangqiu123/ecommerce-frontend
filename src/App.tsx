@@ -9,6 +9,7 @@ import Login from "@/page/Login";
 import Register from "@/page/Register";
 import ItemPage from "@/page/Item";
 import OAuth from "@/page/OAuth";
+import Error from "@/page/Error";
 
 const App: React.FC = () => {
 	return (
@@ -29,6 +30,7 @@ const App: React.FC = () => {
 				<Route path="/oauth/:origin">
 					<OAuth />
 				</Route>
+				<Route component={Error} />
 			</Switch>
 		</Router>
 	);
