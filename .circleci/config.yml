@@ -1,0 +1,54 @@
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@3.0
+jobs:
+  frontend-build:
+    docker:
+      - image: node:16.13.1
+    steps:
+      - checkout
+      - run:
+          name: "Build frontend file"
+          command: "npm run build"
+      - persist_to_workspace:
+          root: ~/
+          paths: [/ecommerce-frontend/dist]
+  s3-upload:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - attach_workspace:
+          at: ~/
+      - aws-s3/sync:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: /ecommerce-frontend/dist
+          to: $S3_BUCKET
+  cloudfront-invalidation:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - run:
+          name: "Config aws cli credentials"
+          command: |
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set region $AWS_REGION
+      - run:
+          name: "Create Cloudfront invalidation"
+          command: 'aws cloudfront create-invalidation --distribution-id $distributionId --path "/*" '
+
+workflows:
+  frontend-deployment-workflow:
+    jobs:
+      - frontend-build:
+          filters:
+            branches:
+              only: master
+      - s3-upload:
+          requires:
+            - frontend-build
+      - cloudfront-invalidation:
+          requires:
+            - s3-upload
