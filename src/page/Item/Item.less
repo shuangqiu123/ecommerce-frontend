@@ -1,0 +1,125 @@
+@import "~@/util/util.less";
+.itemWrapper {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.imageContainer {
+	max-width: 25rem;
+	flex-basis: 25rem;
+	flex-shrink: 0;
+	padding: 1rem 0;
+	:global {
+		.ant-carousel .slick-prev,
+		.ant-carousel .slick-next,
+		.ant-carousel .slick-prev:hover,
+		.ant-carousel .slick-next:hover {
+		  font-size: inherit;
+		  color: currentColor;
+		}
+		
+		.ant-carousel .slick-prev,
+		.ant-carousel .slick-prev:hover {
+		  left: 10px;
+		  z-index: 2;
+		  font-size: 2rem;
+		  color: #000;
+		}
+		
+		.ant-carousel .slick-next,
+		.ant-carousel .slick-next:hover {
+		  right: 10px;
+		  font-size: 2rem;
+		  z-index: 2;
+		  color: #000;
+		}
+
+		.ant-carousel .slick-dots.slick-dots-bottom {
+			display: none !important;
+		}
+	}
+
+	.imageWrapper {
+		display: flex !important;
+		justify-content: center;
+
+		.image {
+			width: 80%;
+		}
+	}
+}
+
+.contentContainer {
+	padding-left: 8rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	max-width: 35rem;
+	.title {
+		font-size: 1.25rem;
+		font-family: fontm;
+		font-weight: 400;
+		margin: 0 0 0.5rem;
+	}
+
+	.productInfo {
+		font-size: 0.875rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.price {
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+	}
+
+	.qty, .description>span {
+		margin-bottom: 0.5rem;
+		font-size: .875rem;
+		letter-spacing: 0.025em;
+		font-family: fontm;
+		font-weight: 600;
+	}
+
+	.button {
+		display: flex;
+		align-items: center;
+		.input {
+			margin-right: 3.5rem;
+		}
+	}
+
+	.description>p {
+		margin-top: 1rem;
+	}
+	:global {
+		.ant-divider.ant-divider-horizontal {
+			margin: 0.8rem 0;
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+		}
+		.ant-input-number {
+			width: 42px;
+			height: 42px;
+		}
+	}
+}
+
+@media (max-width: @screen-lg) {
+	.itemWrapper {
+		flex-wrap: wrap;
+	}
+	.imageContainer {
+		width: 100%;
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.contentContainer {
+		width: 100%;
+		padding: 2rem 0;
+	}
+}
+
+@media (max-width: @screen-xs) {
+	.imageContainer {
+		max-width: 20rem;
+	}
+}

@@ -6,8 +6,9 @@ import {
 } from "react-router-dom";
 import HomePage from "@/page/HomePage";
 import Login from "@/page/Login";
-import Register from "./page/Register";
-import OAuth from "./page/OAuth";
+import Register from "@/page/Register";
+import ItemPage from "@/page/Item";
+import OAuth from "@/page/OAuth";
 
 const App: React.FC = () => {
 	return (
@@ -21,6 +22,9 @@ const App: React.FC = () => {
 				</Route>
 				<Route exact path="/user/signup">
 					<Register />
+				</Route>
+				<Route path="/item">
+					<ItemPage />
 				</Route>
 				<Route path="/oauth/:origin">
 					<OAuth />

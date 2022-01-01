@@ -8,7 +8,7 @@ const Item: React.FC= () => {
 	return (
 		<div className={styles.itemContainer}>
 			<div className={styles.item}>
-				<a href="/user/login">
+				<a href="/item">
 					<img src={image} alt="The item" className={styles.image} />
 				</a>
 				<div className={styles.icons}>
