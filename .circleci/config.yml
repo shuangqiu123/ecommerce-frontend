@@ -8,11 +8,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Install node modules"
+          command: "npm install"
+      - run:
           name: "Build frontend file"
           command: "npm run build"
       - persist_to_workspace:
           root: ~/
-          paths: [/ecommerce-frontend/dist]
+          paths: [ecommerce-frontend/dist]
   s3-upload:
     docker:
       - image: amazon/aws-cli
@@ -23,7 +26,7 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: /ecommerce-frontend/dist
+          from: ecommerce-frontend/dist
           to: $S3_BUCKET
   cloudfront-invalidation:
     docker:
