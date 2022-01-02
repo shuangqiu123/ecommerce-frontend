@@ -1,0 +1,76 @@
+@import "~@/util/util.less";
+.itemContainer {
+	display: flex;
+
+	.imageWrapper {
+		margin-right: 1rem;
+		flex-basis: 8rem;
+		max-width: 8rem;
+		.image {
+			width: 100%;
+		}
+	}
+
+	.contentWrapper {
+		flex-grow: 1;
+		.title {
+			display: block;
+			font-family: fontm;
+			font-size: 1rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.description {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0.25rem;
+
+			.information {
+				span {
+					display: block;
+					margin-bottom: 0.25rem;
+					font-size: 0.8rem;
+					color: grey;
+				}
+			}
+
+			.priceHolder {
+				text-align: right;
+				.price {
+					font-weight: 700;
+					font-size: 1rem;
+				}
+			}
+
+			@media (max-width: @screen-xl) {
+				display: block;
+				.priceHolder {
+					margin: 0.4rem 0;
+					text-align: start;
+				}
+				.information, .input {
+					margin: 0.4rem 0;
+				}
+			}
+		}
+
+		.linkContainer {
+			.link {
+				cursor: pointer;
+				margin-right: 1rem;
+				color: #313131;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	@media (max-width: @screen-xs) {
+		.linkContainer {
+			.link {
+				display: block;
+			}
+		}
+	}
+}

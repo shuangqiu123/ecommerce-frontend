@@ -95,6 +95,14 @@
 					margin-right: 1rem;
 					padding: 0.5rem;
 				}
+
+				.left {
+					display: flex;
+					align-items: center;
+					.bottomHeaderIcon {
+						margin-left: 1rem;
+					}
+				}
 			}
 		}
 	}
@@ -102,6 +110,20 @@
 	@media (max-width: @screen-md) {
 		.topHeader {
 			display: none;
+		}
+	}
+
+	@media (max-width: @screen-xs) {
+		.bottomHeader .bottomHeaderContainer {
+			padding: 0 1rem;
+		}
+		.bottomHeaderIcon {
+			margin-right: 0.5rem !important;
+		}
+		.left {
+			.bottomHeaderIcon {
+				margin-left: 0.5rem !important;
+			}
 		}
 	}
 }
