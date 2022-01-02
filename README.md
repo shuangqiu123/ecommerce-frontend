@@ -1,3 +1,5 @@
+[![<ORG_NAME>](https://circleci.com/gh/shuangqiu123/ecommerce-frontend.svg?style=shield)](<https://app.circleci.com/pipelines/github/shuangqiu123/ecommerce-frontend>)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
