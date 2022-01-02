@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useRef } from "react";
 import { connect, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { IStoreState } from "@/interface/Redux";
 import SearchOutlined from "@ant-design/icons/SearchOutlined";
 import HeartOutlined from "@ant-design/icons/HeartOutlined";
@@ -31,6 +32,7 @@ const Header: React.FC<IHeaderProps> = ({
 	const [viewport] = useViewport();
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	useEffect(() => {
 		if (userId === "") {
@@ -87,15 +89,16 @@ const Header: React.FC<IHeaderProps> = ({
 		<>
 			<div className={styles.bottomHeader}>
 				<div className={classnames(styles.bottomHeaderContainer, styles.small)}>
-					<div>
+					<div className={styles.left}>
 						<Toggler toggle={()=> setVisible((prev) => !prev)} />
+						<SearchOutlined className={styles.bottomHeaderIcon}/>
 					</div>
 					<a href="/">
 						<img src={logo} className={styles.logo} alt="Website Logo" />
 					</a>
 					<div>
 						<HeartOutlined className={styles.bottomHeaderIcon}/>
-						<ShoppingOutlined className={styles.bottomHeaderIcon}/>
+						<ShoppingOutlined className={styles.bottomHeaderIcon} onClick={() => history.push("/cart")}/>
 					</div>
 				</div>
 			</div>
@@ -169,7 +172,7 @@ const Header: React.FC<IHeaderProps> = ({
 							</Dropdown>
 							<SearchOutlined className={styles.topHeaderIcon}/>
 							<HeartOutlined className={styles.topHeaderIcon}/>
-							<ShoppingOutlined className={styles.topHeaderIcon}/>
+							<ShoppingOutlined className={styles.topHeaderIcon} onClick={() => history.push("/cart")}/>
 						</div>
 					</div>
 				</div>
