@@ -12,10 +12,9 @@ import { useScroll } from "@/hook/useScroll";
 import styles from "./Header.less";
 import classnames from "classnames";
 import { useViewport } from "@/hook/useViewport";
-import { useHistory } from "react-router";
 import { getItem } from "@/util/localstorage";
 import { EUserActionTypes } from "@/common/User";
-import { Drawer, Dropdown, Menu } from "antd";
+import { Dropdown, Menu } from "antd";
 
 interface IHeaderProps {
 	userId: string;
@@ -30,7 +29,6 @@ const Header: React.FC<IHeaderProps> = ({
 	const [pin, setPin] = useState("");
 	const [up, down, top] = useScroll();
 	const [viewport] = useViewport();
-	const history = useHistory();
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const dispatch = useDispatch();
 

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import ShopLayout from "@/layout/ShopLayout";
 import LeftOutlined from "@ant-design/icons/LeftOutlined";
 import RightOutlined from "@ant-design/icons/RightOutlined";

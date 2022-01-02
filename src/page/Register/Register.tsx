@@ -2,7 +2,7 @@ import { IStoreState } from "@/interface/Redux";
 import BasicLayout from "@/layout/BasicLayout";
 import Form from "@/components/Form";
 import { Form as AntForm, Input } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import styles from "./Register.less";
 import { IUserPostRequest } from "@/interface/User";
@@ -56,7 +56,7 @@ const Register: React.FC<IRegisterProps> = ({
 				...value
 			};
 
-			console.log(payload);
+			// console.log(payload);
 
 			dispatch({
 				type: EUserActionTypes.signup,
@@ -83,6 +83,7 @@ const Register: React.FC<IRegisterProps> = ({
 						rules={[
 							{ required: true, message: "Please enter an email" },
 							{
+								// eslint-disable-next-line no-useless-escape
 								pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
 								message: "Incorrect Email Format"
 							}

@@ -43,11 +43,9 @@
 		"start": "craco start",
 		"build": "craco build",
 		"test": "craco test",
-		"lint": "npm run lint:js && npm run lint:style",
+		"lint": "npm run lint:js",
 		"lint:js": "eslint --cache --max-warnings=0 --ext .js,.jsx,.ts,.tsx ./src",
 		"lint:fix": "eslint --cache --fix --ext .js,.jsx,.ts,.tsx ./src",
-		"lint:style": "stylelint \"src/**/*.less\" --syntax less",
-		"lint:style-fix": "stylelint --fix \"src/**/*.less\" --syntax less",
 		"eject": "react-scripts eject"
 	},
 	"browserslist": {

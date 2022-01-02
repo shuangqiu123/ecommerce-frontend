@@ -11,7 +11,7 @@ const Icon: React.FC<IIconProps> = ({
 	href,
 	children
 }) => (
-	<a className={styles.icon} href={href} title={title} target="_blank">
+	<a className={styles.icon} href={href} title={title} target="_blank" rel="noreferrer">
 		{children}
 	</a>
 );

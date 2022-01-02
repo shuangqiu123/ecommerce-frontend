@@ -8,14 +8,17 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Install node modules"
+          command: "yarn install"
+      - run:
           name: "Build frontend file"
-          command: "npm run build"
+          command: "yarn build"
       - persist_to_workspace:
           root: ~/
-          paths: [/ecommerce-frontend/dist]
+          paths: [project/dist]
   s3-upload:
     docker:
-      - image: amazon/aws-cli
+      - image: 'cimg/python:3.6'
     steps:
       - attach_workspace:
           at: ~/
@@ -23,12 +26,18 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: /ecommerce-frontend/dist
+          from: dist
           to: $S3_BUCKET
   cloudfront-invalidation:
     docker:
       - image: amazon/aws-cli
     steps:
+      - run:
+          name: "Config aws cli credentials"
+          command: |
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set region $AWS_REGION
       - run:
           name: "Create Cloudfront invalidation"
           command: 'aws cloudfront create-invalidation --distribution-id $distributionId --path "/*" '

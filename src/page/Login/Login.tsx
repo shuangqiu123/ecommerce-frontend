@@ -22,6 +22,7 @@ const Login: React.FC = () => {
 				const loginForm: IUserLoginRequest = {
 					password: values.password
 				};
+				// eslint-disable-next-line no-useless-escape
 				if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.usernameOrEmail)) {
 					loginForm.email = values.usernameOrEmail;
 				}

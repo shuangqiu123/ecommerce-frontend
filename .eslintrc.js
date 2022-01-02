@@ -5,7 +5,6 @@ module.exports = {
 		"plugin:@typescript-eslint/recommended",
 	],
 	rules: {
-		"no-console": "warn",
 		"no-multi-spaces": "error",
 		"array-bracket-spacing": "error",
 		"comma-spacing": ["error", {
