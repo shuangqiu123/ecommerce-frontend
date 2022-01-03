@@ -1,17 +1,20 @@
 import React from "react";
+import classnames from "classnames";
 import styles from "./Form.less";
 
 interface IFormProps {
 	title: string;
+	className?: string;
 }
 
 const Form: React.FC<IFormProps> = ({
 	title,
+	className,
 	children
 }) => {
 
 	return (
-		<div className={styles.formContainer}>
+		<div className={classnames(styles.formContainer, className)}>
 			<h1 className={styles.title}>{title}</h1>
 			{children}
 		</div>

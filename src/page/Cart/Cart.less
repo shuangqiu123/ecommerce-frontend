@@ -2,25 +2,12 @@
 .cartContainer {
 	display: flex;
 	width: 100%;
-	min-height: 76vh;
+	min-height: 73vh;
 	justify-content: center;
 
 	.shoppingBag {
 		flex: 1;
 		padding-right: 2rem;
-		.title {
-			font-family: fontm;
-			font-weight: 600;
-			font-size: 1.5rem;
-			margin-bottom: 1.5rem;
-			span {
-				color: gray;
-				font-family: fontm;
-				font-weight: 500;
-				font-size: 0.9rem;
-				margin-left: 2rem;
-			}
-		}
 
 		.itemContainer {
 			.itemList {
@@ -102,7 +89,60 @@
 
 		.summary {
 			width: 100%;
+			margin-top: 2rem;
 			min-width: 0;
+		}
+	}
+}
+
+.title {
+	font-family: fontm;
+	font-weight: 600;
+	font-size: 1.5rem;
+	margin-bottom: 1.5rem;
+	span {
+		color: gray;
+		font-family: fontm;
+		font-weight: 500;
+		font-size: 0.9rem;
+		margin-left: 2rem;
+	}
+}
+
+.emptyCartContainer {
+	text-align: center;
+	padding: 0 1rem;
+	.icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	.description {
+		padding: 2.5rem 15rem;
+    	background: #f2f2f2;
+		display: flex;
+		flex-direction: column;
+
+		@media (max-width: @screen-md) {
+			padding: 2.5rem 7rem;
+		}
+
+		@media (max-width: @screen-sm) {
+			padding: 2.5rem 3rem;
+		}
+	}
+
+	.button {
+		margin-top: 1rem;
+	}
+
+	.prompt {
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.button {
+			width: 15rem;
 		}
 	}
 }
