@@ -8,9 +8,11 @@ import HomePage from "@/page/HomePage";
 import Login from "@/page/Login";
 import Register from "@/page/Register";
 import ItemPage from "@/page/Item";
+import ForgotPassword from "@/page/ForgotPassword";
 import OAuth from "@/page/OAuth";
 import Cart from "@/page/Cart";
 import Error from "@/page/Error";
+import ResetPassword from "@/page/ResetPassword";
 
 const App: React.FC = () => {
 	return (
@@ -24,6 +26,12 @@ const App: React.FC = () => {
 				</Route>
 				<Route exact path="/user/signup">
 					<Register />
+				</Route>
+				<Route path="/user/forgotPassword">
+					<ForgotPassword />
+				</Route>
+				<Route path="/user/resetPassword">
+					<ResetPassword />
 				</Route>
 				<Route path="/item">
 					<ItemPage />

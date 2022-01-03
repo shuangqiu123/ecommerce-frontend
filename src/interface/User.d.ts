@@ -38,3 +38,8 @@ export interface IUserPostRequest {
 	name: string;
 	description?: string;
 }
+
+export interface IUserResetPasswordRequest {
+	password: string;
+	token: string;
+}
