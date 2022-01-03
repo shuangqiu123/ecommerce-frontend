@@ -8,7 +8,7 @@ import Icon from "@/components/Icon";
 const Footer: React.FC = () => (
 	<footer className={styles.footer}>
 		<div className={styles.text}>
-			<p>©Maintained by Shuang Qiu</p>
+			<p>&copy;Maintained by Shuang Qiu</p>
 			<div className={styles.icons}>
 				<Icon title="Github" href="https://github.com/shuangqiu123/ecommerce">
 					<GithubOutlined />
