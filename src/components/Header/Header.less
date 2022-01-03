@@ -141,6 +141,14 @@
 	&.unpinned {
 		transform: translateY(-100%);
 	}
+
+	@media (max-width: @screen-sm) {
+		transform: none;
+		transition: none;
+		&.unpinned {
+			transform: none;
+		}
+	}
 }
 
 .dropdown {

@@ -4,7 +4,7 @@ import React from "react";
 
 const Error: React.FC = () => {
 	return (
-		<BasicLayout onePage>
+		<BasicLayout onePage={true}>
 			<ErrorComponent />
 		</BasicLayout>
 	);
