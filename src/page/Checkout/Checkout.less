@@ -1,0 +1,72 @@
+@import "~@/util/util.less";
+.container {
+	max-width: 80rem;
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+
+	.title {
+		font-family: fontm;
+		font-weight: 600;
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		span {
+			color: gray;
+			font-family: fontm;
+			font-weight: 500;
+			font-size: 0.9rem;
+			margin-left: 2rem;
+		}
+	}
+
+	.order {
+		padding-right: 2rem;
+		width: 100%;
+		flex: 1;
+		border-right: 1px solid #e5e0e0;
+		.itemContainer {
+			.itemList {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				border-top: 1px solid #e5e5e5f5;
+				.item {
+					padding: 1rem 0;
+					border-bottom: 1px solid #e5e5e5f5;
+				}
+			}
+		}
+
+		.summary {
+			margin-top: 1rem;
+			display: flex;
+			justify-content: space-between;
+			font-weight: 700;
+			font-size: 1rem;
+		}
+	}
+
+	.form {
+		flex: 1;
+		width: 100%;
+		padding-left: 1.5rem;
+
+		.button {
+			text-align: right;
+		}
+	}
+
+	@media (max-width: @screen-lg) {
+		flex-wrap: wrap;
+		.order {
+			flex: none;
+			border-right: none;
+			padding: 0;
+		}
+
+		.form {
+			flex: none;
+			padding: 0;
+		}
+	}
+}

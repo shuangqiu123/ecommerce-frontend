@@ -1,7 +1,7 @@
 import ShopLayout from "@/layout/ShopLayout";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import Item from "./Item";
+import { TabularItem as Item } from "@/components/Item";
 import styles from "./Cart.less";
 import { Input, Modal } from "antd";
 import Button from "@/components/Button";

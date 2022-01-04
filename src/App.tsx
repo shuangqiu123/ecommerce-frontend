@@ -13,6 +13,7 @@ import OAuth from "@/page/OAuth";
 import Cart from "@/page/Cart";
 import Error from "@/page/Error";
 import ResetPassword from "@/page/ResetPassword";
+import Checkout from "@/page/Checkout";
 
 const App: React.FC = () => {
 	return (
@@ -38,6 +39,9 @@ const App: React.FC = () => {
 				</Route>
 				<Route path="/cart">
 					<Cart />
+				</Route>
+				<Route path="/checkout">
+					<Checkout />
 				</Route>
 				<Route path="/oauth/:origin">
 					<OAuth />

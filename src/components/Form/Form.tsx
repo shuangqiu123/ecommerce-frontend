@@ -15,7 +15,7 @@ const Form: React.FC<IFormProps> = ({
 
 	return (
 		<div className={classnames(styles.formContainer, className)}>
-			<h1 className={styles.title}>{title}</h1>
+			{title && <h1 className={styles.title}>{title}</h1>}
 			{children}
 		</div>
 	);
