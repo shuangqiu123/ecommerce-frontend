@@ -67,7 +67,7 @@ const Register: React.FC<IRegisterProps> = ({
 	};
 
 	return (
-		<BasicLayout onePage={true}>
+		<BasicLayout flexbox>
 			<Form
 				title={email.length > 0 ? "Finish your sign up" : "Sign Up"}
 			>

@@ -52,7 +52,7 @@ const Login: React.FC = () => {
 	};
 
 	return (
-		<BasicLayout onePage={true}>
+		<BasicLayout flexbox>
 			<CustomForm title="Sign In">
 				<Form
 					layout={"vertical"}

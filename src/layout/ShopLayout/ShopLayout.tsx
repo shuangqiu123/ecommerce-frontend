@@ -7,7 +7,7 @@ const ShopLayout: React.FC = ({
 	children
 }) => {
 	return (
-		<BasicLayout onePage={false}>
+		<BasicLayout>
 			<div className={styles.homePageContainer}>
 				<div className={styles.breadCrumb}>
 					<Breadcrumb>
