@@ -55,7 +55,7 @@ const ForgotPassword: React.FC = () => {
 	);
 
 	return (
-		<BasicLayout onePage>
+		<BasicLayout flexbox>
 			<div className={styles.container}>
 				{EmailInput}
 			</div>

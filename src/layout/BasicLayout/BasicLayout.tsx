@@ -5,15 +5,15 @@ import Footer from "@/components/Footer";
 import styles from "./BasicLayout.less";
 
 interface IBasicLayoutProps {
-	onePage: boolean;
+	flexbox?: boolean;
 }
 
-const BasicLayout: React.FC<IBasicLayoutProps> = ({onePage, children}) => {
+const BasicLayout: React.FC<IBasicLayoutProps> = ({ flexbox, children}) => {
 
 	return (
-		<div className={classnames(styles.basicLayout, onePage ? styles.onePage : "")}>
+		<div className={classnames(styles.basicLayout)}>
 			<Header />
-			<div className={`${styles.childrenContainer}`}>
+			<div className={`${styles.childrenContainer} ${flexbox && styles.flexbox}`}>
 				{children}
 			</div>
 			<Footer />

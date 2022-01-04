@@ -27,7 +27,7 @@ const Cart: React.FC = () => {
 	};
 
 	const emptyCart = (
-		<BasicLayout onePage>
+		<BasicLayout>
 			<div className={styles.emptyCartContainer}>
 				<h1 className={styles.title}>
 					Shopping Bag

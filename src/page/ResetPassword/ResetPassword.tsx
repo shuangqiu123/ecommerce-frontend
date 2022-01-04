@@ -25,7 +25,7 @@ const ResetPassword: React.FC = () => {
 	};
 
 	return (
-		<BasicLayout onePage>
+		<BasicLayout flexbox>
 			<div className={styles.container}>
 				<FormContainer title="Reset Password" className={styles.form}>
 					<Form

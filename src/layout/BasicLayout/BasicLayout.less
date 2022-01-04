@@ -2,32 +2,14 @@
 
 .basicLayout {
 	padding-top: 6rem;
-	min-height: 100%;
-	&.onePage {
-		.childrenContainer {
-			min-height: 80vh;
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
-		}
-
-		@media (max-width: @screen-lg) {
-			.childrenContainer {
-				min-height: 70vh;
-			}
-		}
-
-		@media (max-width: @screen-sm) {
-			.childrenContainer {
-				min-height: 60vh;
-			}
-		}
-	}
+	width: 100%;
 
 	.childrenContainer {
+		width: 100%;
+		min-height: 80vh;
 		padding-top: 1rem;
     	padding-bottom: 1rem;
+	
 		:global {
 			.ant-form {
 				width: 100%;
@@ -71,10 +53,21 @@
 		}
 	}
 
-	@media (max-width: @screen-sm) {
-		width: 100%;
+	.childrenContainer.flexbox {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	@media (max-width: @screen-lg) {
 		.childrenContainer {
-			width: 100%;
+			min-height: 70vh;
+		}
+	}
+
+	@media (max-width: @screen-sm) {
+		.childrenContainer {
+			min-height: 60vh;
 		}
 	}
 }

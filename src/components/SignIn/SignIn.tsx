@@ -4,11 +4,8 @@ import { useDispatch } from "react-redux";
 import CustomForm from "@/components/Form";
 import styles from "./SignIn.less";
 import Button from "@/components/Button";
-import Icon from "@/components/Icon";
-import GoogleOutlined from "@ant-design/icons/GoogleOutlined";
 import { EUserActionTypes } from "@/common/User";
 import { IUserLoginRequest } from "@/interface/User";
-import { EOAuthActionTypes } from "@/common/OAuth";
 
 const Login: React.FC = () => {
 	const [form] = Form.useForm();
@@ -39,15 +36,6 @@ const Login: React.FC = () => {
 			// eslint-disable-next-line @typescript-eslint/no-empty-function
 			}).catch(error => {
 			});
-	};
-
-	const googleOnClick = () => {
-		dispatch({
-			type: EOAuthActionTypes.googleSignIn,
-			callback: (url: string) => {
-				window.location.href = url;
-			}
-		});
 	};
 
 	return (
@@ -93,17 +81,6 @@ const Login: React.FC = () => {
 				</Form.Item>
 			</Form>
 			<Button name="SIGN IN" onClick={submit} reverse />
-			<div className={styles.bottomContainer}>
-				<p><span className={styles.boldText}>Need an account?</span> Sign up&nbsp;
-					<a href="/user/signup" className={styles.link}>here</a>
-				</p>
-				<p className={styles.text}>Or you can sign in with:</p>
-				<div className={styles.iconContainer} onClick={googleOnClick}>
-					<Icon title="google">
-						<GoogleOutlined />
-					</Icon>
-				</div>
-			</div>
 		</CustomForm>
 	);
 };
