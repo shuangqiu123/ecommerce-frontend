@@ -8,7 +8,7 @@
 		width: 100%;
 		min-height: 80vh;
 		padding-top: 1rem;
-    	padding-bottom: 1rem;
+		padding-bottom: 1rem;
 	
 		:global {
 			.ant-form {
@@ -49,6 +49,23 @@
 
 			.ant-select.ant-select-open .ant-select-selector {
 				border-color: #313131 !important;
+			}
+
+			.ant-input-affix-wrapper.ant-input-password {
+				padding-top: 0;
+				padding-bottom: 0;
+				.ant-input {
+					border: none;
+				}
+			}
+
+			.ant-input-password:hover {
+				border: 0.0625rem solid #e5e5e5;
+			}
+
+			.ant-input-password.ant-input-affix-wrapper-focused {
+				box-shadow: none;
+				border: 0.0625rem solid #313131;
 			}
 		}
 	}
