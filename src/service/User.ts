@@ -2,35 +2,17 @@ import { User, IUserLoginRequest, IUserPostRequest, IUserResetPasswordRequest } 
 import request from "@/util/request";
 
 export async function login(userLoginRequest: IUserLoginRequest): Promise<User> {
-	return request
-		.post("/auth/login", userLoginRequest)
-		.then(resp => {
-			localStorage.setItem("eportfolio/token", resp.data.token);
-			return resp.data;
-		})
-		.catch(error => {
-			return null;
-		});
+	return request.post("/user/login/normal", userLoginRequest);
 }
 
 export async function signup(userPostRequest: IUserPostRequest): Promise<User> {
-	return request.post("/auth/signup", userPostRequest)
-		.then(resp => {
-			localStorage.setItem("eportfolio/token", resp.data.token);
-			return resp.data;
-		});
+	return request.post("/user/register/normal", userPostRequest);
 }
 
 export async function forgotPassword(email: string): Promise<void> {
-	return request.get("/user/forgotPassword?email=" + email)
-		.then(resp => {
-			return resp.data;
-		});
+	return request.get("/user/forgotPassword?email=" + email);
 }
 
 export async function resetPassword(resetPasswordRequest: IUserResetPasswordRequest): Promise<void> {
-	return request.post("/user/resetPassword", resetPasswordRequest)
-		.then(resp => {
-			return resp.data;
-		});
+	return request.post("/user/resetPassword", resetPasswordRequest);
 }

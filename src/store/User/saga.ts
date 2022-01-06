@@ -3,6 +3,7 @@ import { IAction } from "@/interface/Redux";
 import { IUserLoginRequest, IUserPostRequest, IUserResetPasswordRequest, User } from "@/interface/User";
 import { forgotPassword, login, resetPassword, signup } from "@/service/User";
 import { setItem } from "@/util/localstorage";
+import { IResponse } from "@/util/request";
 import { call, ForkEffect, put, takeEvery } from "@redux-saga/core/effects";
 import { setUser } from "./action";
 
@@ -10,21 +11,34 @@ function* loginEffect({ payload, callback }: IAction<IUserLoginRequest>) {
 	if (!payload) {
 		return;
 	}
-	const user: User = yield call(login, payload);
-	if (user !== null) {
-		yield put(setUser(user));
-		callback?.();
+	const userResponse: IResponse<User> = yield call(login, payload);
+
+	if (userResponse.error) {
+		callback?.(userResponse.error);
+		return;
 	}
-	setItem("/eportfolio/user", user);
+	if (!userResponse.data) return;
+
+	yield put(setUser(userResponse.data));
+	setItem("/demostore/user", userResponse.data);
+	callback?.();
 }
 
-function* signupEffect({ payload }: IAction<IUserPostRequest>) {
+function* signupEffect({ payload, callback }: IAction<IUserPostRequest>) {
 	if (!payload) {
 		return;
 	}
-	const user: User = yield call(signup, payload);
-	yield put(setUser(user));
-	setItem("/eportfolio/user", user);
+	const userResponse: IResponse<User> = yield call(signup, payload);
+
+	if (userResponse.error) {
+		callback?.(userResponse.error);
+		return;
+	}
+	if (!userResponse.data) return;
+
+	yield put(setUser(userResponse.data));
+	setItem("/demostore/user", userResponse.data);
+	callback?.();
 }
 
 function* forgotPasswordEffect({ payload }: IAction<string>) {

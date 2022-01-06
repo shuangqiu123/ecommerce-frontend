@@ -19,8 +19,7 @@ export interface IUserStoreState {
 }
 
 export interface IUserLoginRequest {
-	userName?: string;
-	email?: string;
+	username: string;
 	password: string;
 }
 
@@ -31,12 +30,9 @@ export interface IUserLoginForm {
 
 export interface IUserPostRequest {
 	userId?: string;
-	userName: string;
+	username: string;
 	email: string;
 	password: string;
-	tags: string[];
-	name: string;
-	description?: string;
 }
 
 export interface IUserResetPasswordRequest {

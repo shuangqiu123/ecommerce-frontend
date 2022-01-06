@@ -2,7 +2,7 @@ import { IStoreState } from "@/interface/Redux";
 import BasicLayout from "@/layout/BasicLayout";
 import Form from "@/components/Form";
 import { Form as AntForm, Input } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 import { connect, useDispatch } from "react-redux";
 import styles from "./Register.less";
 import { IUserPostRequest } from "@/interface/User";
@@ -30,13 +30,6 @@ const Register: React.FC<IRegisterProps> = ({
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	useEffect(() => {
-		if (userName) {
-			history.push(`/${userName}`);
-			return;
-		}
-	}, [history, userName, email]);
-
 	const googleOnClick = () => {
 		dispatch({
 			type: EOAuthActionTypes.googleSignIn,
@@ -48,22 +41,38 @@ const Register: React.FC<IRegisterProps> = ({
 
 	const onSubmit = () => {
 		form.validateFields().then(value => {
-			const payload: IUserPostRequest = oauthSignUp ? {
-				...value,
-				email,
-				name
-			}: {
+			const payload: IUserPostRequest = {
 				...value
 			};
-
-			// console.log(payload);
-
 			dispatch({
 				type: EUserActionTypes.signup,
-				payload: payload
+				payload: payload,
+				callback
 			});
-			form.resetFields();
 		});
+	};
+
+	const callback = (error?: Record<string, string>) => {
+		if (error) {
+			if (error.username) {
+				form.setFields([
+					{
+					  name: "username",
+					  errors: [error["username"]],
+					}
+				]);
+			}
+			if (error.email) {
+				form.setFields([
+					{
+						name: "email",
+						errors: [error["email"]],
+					  },
+				]);
+			}
+			return;
+		}
+		history.push("/");
 	};
 
 	return (
@@ -74,14 +83,14 @@ const Register: React.FC<IRegisterProps> = ({
 				<AntForm
 					layout={"vertical"}
 					form={form}
-					validateTrigger="onFinish"
+					validateTrigger="onBlur"
 				>
 					{!oauthSignUp && <AntForm.Item
 						label="Email"
 						name="email"
 						className={styles.formItem}
 						rules={[
-							{ required: true, message: "Please enter an email" },
+							{ required: true, message: "Please enter an email." },
 							{
 								// eslint-disable-next-line no-useless-escape
 								pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -96,14 +105,12 @@ const Register: React.FC<IRegisterProps> = ({
 					</AntForm.Item>}
 					<AntForm.Item
 						label="Username"
-						name="userName"
+						name="username"
 						className={styles.formItem}
 						rules={[
-							{ required: true, message: "Please enter a username" },
-							{ min: 4, message: "Username must be minimum of 4 characters" },
-							{
-								pattern: /^[a-z]*[0-9]*$/,
-								message: "Username should be consist of lowercase characters or digits"
+							{ required: true, message: "Please enter a username." },
+							{ pattern: /^[a-zA-Z0-9]{4,16}$/, 
+							  message: "Username should contain letters and digits and the length is between 4 and 16."
 							}
 						]}
 					>
@@ -117,11 +124,10 @@ const Register: React.FC<IRegisterProps> = ({
 						name="password"
 						className={styles.formItem}
 						rules={[
-							{ required: true, message: "Please enter a password" },
-							{ min: 8, message: "Password must be minimum 8 characters" },
+							{ required: true, message: "Please enter a password." },
 							{
-								pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,32}$/,
-								message: "Password should contain digits, uppercase and lowercase characters "
+								pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{8,20}$/,
+								message: "Password should consist of both letters and digits and the length is between 8 and 20."
 							}
 						]}
 					>
@@ -132,7 +138,7 @@ const Register: React.FC<IRegisterProps> = ({
 						/>
 					</AntForm.Item>
 				</AntForm>
-				<Button name="CREATE ACCOUNT" onClick={onSubmit} reverse />
+				<Button name="CREATE ACCOUNT" onClick={onSubmit} reverse classname={styles.button} />
 				<div className={styles.bottomContainer}>
 					<p className={styles.text}>Or you can sign up with:</p>
 					<div className={styles.iconContainer} onClick={googleOnClick}>
@@ -142,7 +148,6 @@ const Register: React.FC<IRegisterProps> = ({
 					</div>
 				</div>
 			</Form>
-			
 		</BasicLayout>
 	);
 };

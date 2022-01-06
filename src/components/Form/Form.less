@@ -50,17 +50,43 @@
 
 		.ant-checkbox-checked .ant-checkbox-inner {
 			background-color: #313131;
-			border-color: #313131;
+			border-color: #313131 !important;
 		}
 		.ant-checkbox-wrapper .ant-checkbox:hover .ant-checkbox-inner,
 		.ant-checkbox-wrapper:hover .ant-checkbox .ant-checkbox-inner,
 		.ant-checkbox-checked::after {
 			box-shadow: none;
-			border-color: #313131;
+			border-color: #313131 !important;
 		}
-
+		
 		.ant-row.ant-form-item {
 			margin-top: 1.5rem;
+		}
+
+		.ant-select .ant-select-selector {
+			border-color: #e5e5e5 !important;
+			box-shadow: none !important;
+		}
+
+		.ant-select.ant-select-open .ant-select-selector {
+			border-color: #313131 !important;
+		}
+
+		.ant-input-affix-wrapper.ant-input-password {
+			padding-top: 0;
+			padding-bottom: 0;
+			.ant-input {
+				border: none;
+			}
+		}
+
+		.ant-input-password:hover {
+			border: 0.0625rem solid #e5e5e5;
+		}
+
+		.ant-input-password.ant-input-affix-wrapper-focused {
+			box-shadow: none;
+			border: 0.0625rem solid #313131;
 		}
 	}
 }
