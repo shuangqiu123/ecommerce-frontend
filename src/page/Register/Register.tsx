@@ -72,7 +72,7 @@ const Register: React.FC<IRegisterProps> = ({
 			}
 			return;
 		}
-		history.push("/");
+		history.push("/user/signup/confirm");
 	};
 
 	return (
@@ -131,7 +131,7 @@ const Register: React.FC<IRegisterProps> = ({
 							}
 						]}
 					>
-						<Input
+						<Input.Password
 							className={styles.input}
 							placeholder="Enter your password here"
 							type="password"

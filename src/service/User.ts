@@ -16,3 +16,11 @@ export async function forgotPassword(email: string): Promise<void> {
 export async function resetPassword(resetPasswordRequest: IUserResetPasswordRequest): Promise<void> {
 	return request.post("/user/resetPassword", resetPasswordRequest);
 }
+
+export async function verifyEmail(token: string): Promise<void> {
+	return request.get("/user/verifyEmail", {
+		headers: {
+			"Authorization": `Bearer ${token}`
+		}
+	});
+}

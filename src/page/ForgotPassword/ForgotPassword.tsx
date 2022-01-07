@@ -13,9 +13,7 @@ const ForgotPassword: React.FC = () => {
 
 	const onSubmit = () => {
 		form.validateFields().then(value => {
-			const payload: string = {
-				...value
-			};
+			const payload: string = value.email;
 			dispatch({
 				type: EUserActionTypes.forgotPassword,
 				payload: payload
