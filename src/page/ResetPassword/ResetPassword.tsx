@@ -6,18 +6,22 @@ import styles from "./ResetPassword.less";
 import { Form, Input } from "antd";
 import Button from "@/components/Button";
 import { EUserActionTypes } from "@/common/User";
+import { useLocation } from "react-router-dom";
 
 const ResetPassword: React.FC = () => {
 	const [form] = Form.useForm();
 	const dispatch = useDispatch();
+	const search = useLocation().search;
+	const token = new URLSearchParams(search).get("token");
 
 	const onSubmit = () => {
 		form.validateFields().then(value => {
-			const payload: string = {
-				...value
+			const payload = {
+				...value,
+				token
 			};
 			dispatch({
-				type: EUserActionTypes.forgotPassword,
+				type: EUserActionTypes.resetPassword,
 				payload: payload
 			});
 			form.resetFields();
@@ -46,7 +50,7 @@ const ResetPassword: React.FC = () => {
 								}
 							]}
 						>
-							<Input
+							<Input.Password
 								className={styles.input}
 								placeholder="Enter your password here"
 								type="password"
@@ -65,7 +69,7 @@ const ResetPassword: React.FC = () => {
 								}
 							]}
 						>
-							<Input
+							<Input.Password
 								className={styles.input}
 								placeholder="Enter your new password again"
 								type="password"

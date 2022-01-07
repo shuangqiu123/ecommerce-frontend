@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import HomePage from "@/page/HomePage";
 import Login from "@/page/Login";
-import Register, { RegisterConfirmation } from "@/page/Register";
+import Register, { EmailVerification, RegisterConfirmation } from "@/page/Register";
 import ItemPage from "@/page/Item";
 import ForgotPassword from "@/page/ForgotPassword";
 import OAuth from "@/page/OAuth";
@@ -30,6 +30,9 @@ const App: React.FC = () => {
 				</Route>
 				<Route exact path="/user/signup/confirm">
 					<RegisterConfirmation />
+				</Route>
+				<Route exact path="/user/verifyEmail">
+					<EmailVerification />
 				</Route>
 				<Route path="/user/forgotPassword">
 					<ForgotPassword />

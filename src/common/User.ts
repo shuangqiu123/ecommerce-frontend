@@ -5,5 +5,6 @@ export enum EUserActionTypes {
 	login = "user/login",
 	signup = "user/signup",
 	forgotPassword = "user/forgotPassword",
-	resetPassword = "user/resetPassword"
+	resetPassword = "user/resetPassword",
+	verifyEmail = "user/verifyEmail"
 }
