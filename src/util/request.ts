@@ -31,7 +31,7 @@ httpClient.interceptors.request.use(
 httpClient.interceptors.response.use(
 	(response) => { 
 		return {
-			data: response.data,
+			data: response.data.object,
 			status: response.status
 		};
 	},

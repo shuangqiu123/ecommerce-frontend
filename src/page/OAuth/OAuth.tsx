@@ -17,7 +17,7 @@ const OAuth: React.FC = () => {
 	const history = useHistory();
 
 	const callback = useCallback((user: User) => {
-		if (user.userName) {
+		if (user.username) {
 			history.push("/");
 			return;
 		}

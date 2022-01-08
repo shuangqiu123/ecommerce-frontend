@@ -2,7 +2,7 @@ import { EUserActionTypes } from "@/common/User";
 import { IAction } from "@/interface/Redux";
 import { IUserLoginRequest, IUserPostRequest, IUserResetPasswordRequest, User } from "@/interface/User";
 import { forgotPassword, login, resetPassword, signup, verifyEmail } from "@/service/User";
-import { setItem } from "@/util/localstorage";
+import { getItem, setItem } from "@/util/localstorage";
 import { IResponse } from "@/util/request";
 import { call, ForkEffect, put, takeEvery } from "@redux-saga/core/effects";
 import { setUser } from "./action";
@@ -63,6 +63,28 @@ function* resetPasswordEffect({ payload }: IAction<IUserResetPasswordRequest>) {
 	yield call(resetPassword, payload);
 }
 
+function* refreshUserEffect({ payload }: IAction<null>) {
+	const user: User | null = yield call(getItem, "/demostore/user");
+	if (!user) return;
+
+	yield put({
+		type: EUserActionTypes.setUser,
+		payload: user
+	});
+}
+
+function* logoutEffect({ payload }: IAction<null>) {
+	yield call(setItem, "/demostore/user", null);
+	yield put({
+		type: EUserActionTypes.setUser,
+		payload: {
+			username: "",
+			email: "",
+			id: "",
+			isverified: "N"
+		}
+	});
+}
 
 export default function* watchUser(): Generator<ForkEffect<never>, void, unknown> {
 	yield takeEvery(EUserActionTypes.login, loginEffect);
@@ -70,4 +92,6 @@ export default function* watchUser(): Generator<ForkEffect<never>, void, unknown
 	yield takeEvery(EUserActionTypes.forgotPassword, forgotPasswordEffect);
 	yield takeEvery(EUserActionTypes.resetPassword, resetPasswordEffect);
 	yield takeEvery(EUserActionTypes.verifyEmail, verifyEmailEffect);
+	yield takeEvery(EUserActionTypes.refreshUser, refreshUserEffect);
+	yield takeEvery(EUserActionTypes.logout, logoutEffect);
 }

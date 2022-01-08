@@ -1,21 +1,15 @@
 export interface User {
-	userId: string;
-	userName: string;
-	tags: string[];
+	id: string;
+	username: string;
 	email: string;
-	name: string;
-	description?: string;
-	isVerified?: boolean;
+	isverified?: string;
 }
 
 export interface IUserStoreState {
-	userId: string;
-	userName: string;
-	tags: string[];
+	id: string;
+	username: string;
 	email: string;
-	name: string;
-	description?: string;
-	isVerified?: boolean;
+	isverified?: string;
 }
 
 export interface IUserLoginRequest {
@@ -24,12 +18,12 @@ export interface IUserLoginRequest {
 }
 
 export interface IUserLoginForm {
-	userNameOrEmail: string;
+	usernameOrEmail: string;
 	password: string;
 }
 
 export interface IUserPostRequest {
-	userId?: string;
+	id?: string;
 	username: string;
 	email: string;
 	password: string;
