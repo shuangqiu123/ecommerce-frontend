@@ -15,6 +15,7 @@ export interface IUserStoreState {
 export interface IUserLoginRequest {
 	username: string;
 	password: string;
+	rememberMe: boolean | null;
 }
 
 export interface IUserLoginForm {

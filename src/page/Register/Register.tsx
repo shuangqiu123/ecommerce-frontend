@@ -31,7 +31,10 @@ const Register: React.FC<IRegisterProps> = ({
 	const googleOnClick = () => {
 		dispatch({
 			type: EOAuthActionTypes.googleSignIn,
-			callback: (url: string) => {
+			callback: (url?: string) => {
+				if (!url) {
+					return;
+				}
 				window.location.href = url;
 			}
 		});

@@ -19,7 +19,8 @@ const Login: React.FC = () => {
 			.then(values => {
 				const loginForm: IUserLoginRequest = {
 					username: values.username,
-					password: values.password
+					password: values.password,
+					rememberMe: values.remember
 				};
 
 				dispatch({

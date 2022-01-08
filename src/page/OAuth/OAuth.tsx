@@ -1,5 +1,4 @@
 import { EOAuthActionTypes, Origin } from "@/common/OAuth";
-import { User } from "@/interface/User";
 import React, { useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useParams, useLocation, useHistory } from "react-router-dom";
@@ -16,12 +15,8 @@ const OAuth: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const callback = useCallback((user: User) => {
-		if (user.username) {
-			history.push("/");
-			return;
-		}
-		history.push("/user/signup");
+	const callback = useCallback(() => {
+		history.push("/");
 	}, [history]);
 
 	useEffect(() => {
@@ -37,7 +32,7 @@ const OAuth: React.FC = () => {
 
 
 	return (
-		<div></div>
+		<></>
 	);
 };
 
