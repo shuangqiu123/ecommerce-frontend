@@ -1,18 +1,37 @@
 import BasicLayout from "@/layout/BasicLayout";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormContainer from "@/components/Form";
 import styles from "./ResetPassword.less";
 import { Form, Input } from "antd";
 import Button from "@/components/Button";
 import { EUserActionTypes } from "@/common/User";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import Confirmation from "@/components/Confirmation";
+import { Rule } from "antd/lib/form";
+
+const Confirm = (
+	<Confirmation
+		title="Success"
+		description="Your password has been reset."
+		buttonName="Log In Now"
+		address="/user/login"
+	/>
+);
 
 const ResetPassword: React.FC = () => {
 	const [form] = Form.useForm();
 	const dispatch = useDispatch();
 	const search = useLocation().search;
+	const history = useHistory();
 	const token = new URLSearchParams(search).get("token");
+	const [success, setSuccess] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (!token) {
+			history.push("/");
+		}
+	}, [history, token]);
 
 	const onSubmit = () => {
 		form.validateFields().then(value => {
@@ -24,29 +43,36 @@ const ResetPassword: React.FC = () => {
 				type: EUserActionTypes.resetPassword,
 				payload: payload
 			});
-			form.resetFields();
+			setSuccess(true);
 		});
 	};
 
-	return (
+	const rePasswordValidator = (rule: Rule, value: string) => {
+		const password: string = form.getFieldValue("password");
+		if (value !== password) {
+			return Promise.reject("Two passwords are unmatched");
+		}
+		return Promise.resolve();
+	};
+
+	const resetPasswordForm = (
 		<BasicLayout flexbox>
 			<div className={styles.container}>
 				<FormContainer title="Reset Password" className={styles.form}>
 					<Form
 						layout={"vertical"}
 						form={form}
-						validateTrigger="onFinish"
+						validateTrigger="onBlur"
 					>
 						<Form.Item
 							label="New Password"
 							name="password"
 							className={styles.formItem}
 							rules={[
-								{ required: true, message: "Please enter a password" },
-								{ min: 8, message: "Password must be minimum 8 characters" },
+								{ required: true, message: "Please enter a password." },
 								{
-									pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,32}$/,
-									message: "Password should contain digits, uppercase and lowercase characters "
+									pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{8,20}$/,
+									message: "Password should consist of both letters and digits and the length is between 8 and 20."
 								}
 							]}
 						>
@@ -62,11 +88,7 @@ const ResetPassword: React.FC = () => {
 							className={styles.formItem}
 							rules={[
 								{ required: true, message: "Please enter a password" },
-								{ min: 8, message: "Password must be minimum 8 characters" },
-								{
-									pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,32}$/,
-									message: "Password should contain digits, uppercase and lowercase characters "
-								}
+								{ validator: rePasswordValidator }
 							]}
 						>
 							<Input.Password
@@ -81,6 +103,8 @@ const ResetPassword: React.FC = () => {
 			</div>
 		</BasicLayout>
 	);
+
+	return success? Confirm : resetPasswordForm;
 };
 
 export default ResetPassword;

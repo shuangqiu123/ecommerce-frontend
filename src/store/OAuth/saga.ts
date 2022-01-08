@@ -3,22 +3,24 @@ import { IAction } from "@/interface/Redux";
 import { User } from "@/interface/User";
 import { google, googleToken } from "@/service/OAuth";
 import { setItem } from "@/util/localstorage";
+import { IResponse } from "@/util/request";
 import { call, ForkEffect, put, takeEvery } from "@redux-saga/core/effects";
 import { setUser } from "../User/action";
-import { setURL } from "./action";
 
 function* googleSignInEffect({ callback }: IAction<string>) {
-	const url: string = yield call(google);
-	callback?.(url);
-	yield put(setURL(url));
+	const url: IResponse<string> = yield call(google);
+	console.log(url);
+	callback?.(url.data);
 }
 
 function* googleTokenEffect({ payload, callback }: IAction<string>) {
 	if (!payload) return;
-	const user: User = yield call(googleToken, payload);
-	callback?.(user);
+	const response: IResponse<User> = yield call(googleToken, payload);
+	const user: User | undefined = response.data;
+	if (!user) return;
 	yield put(setUser(user));
-	setItem("eportfolio/user", user);
+	setItem("/demostore/user", user);
+	callback?.();
 }
 
 export default function* watchUser(): Generator<ForkEffect<never>, void, unknown> {

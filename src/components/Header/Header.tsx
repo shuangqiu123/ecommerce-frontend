@@ -13,36 +13,23 @@ import { useScroll } from "@/hook/useScroll";
 import styles from "./Header.less";
 import classnames from "classnames";
 import { useViewport } from "@/hook/useViewport";
-import { getItem } from "@/util/localstorage";
-import { EUserActionTypes } from "@/common/User";
 import { Dropdown, Menu } from "antd";
+import { EUserActionTypes } from "@/common/User";
 
 interface IHeaderProps {
-	userId: string;
-	userName: string;
+	isLogin: boolean;
 }
 
 const Header: React.FC<IHeaderProps> = ({
-	userId,
-	userName,
+	isLogin
 }) => {
 	const [visible, setVisible] = useState<boolean>(false);
+	const dispatch = useDispatch();
 	const [pin, setPin] = useState("");
 	const [up, down, top] = useScroll();
 	const [viewport] = useViewport();
 	const dropdownRef = useRef<HTMLDivElement>(null);
-	const dispatch = useDispatch();
 	const history = useHistory();
-
-	useEffect(() => {
-		if (userId === "") {
-			const user = getItem("eportfolio/user");
-			dispatch({
-				type: EUserActionTypes.setUser,
-				payload: user
-			});
-		}
-	}, [userId, dispatch]);
 
 	useEffect(() => {
 		if (down) {
@@ -73,15 +60,35 @@ const Header: React.FC<IHeaderProps> = ({
 
 	}, [visible, viewport]);
 
+	const logOutOnClick = () => {
+		dispatch({
+			type: EUserActionTypes.logout
+		});
+		history.replace("/user/login");
+	};
+
 	const signInMenu = (
 		<Menu>
-    		<Menu.Item key="0">
-    		  <a href="/user/login">Sign In</a>
-    		</Menu.Item>
-			<Menu.Divider />
-    		<Menu.Item key="1">
-    		  <a href="/user/signup">Create Account</a>
-    		</Menu.Item>
+			{isLogin ? (
+				<>
+					<Menu.Item key="0">
+    		 			<a href="/user/home">Home</a>
+    				</Menu.Item>
+					<Menu.Item key="1">
+						<a onClick={logOutOnClick}>Log Out</a>
+					</Menu.Item>
+				</>
+			): (
+				<>
+					<Menu.Item key="0">
+			 			<a href="/user/login">Sign In</a>
+					</Menu.Item>
+					<Menu.Divider />
+					<Menu.Item key="1">
+					  <a href="/user/signup">Create Account</a>
+					</Menu.Item>
+				</>
+			)}
 		</Menu>
 	);
 	
@@ -146,12 +153,24 @@ const Header: React.FC<IHeaderProps> = ({
 				<li className={styles.nameItem}>
 					<a className={styles.nameItemAnchor} onClick={() => {}}>CLOTHES</a>
 				</li>
-				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => {}}>SIGN IN</a>
-				</li>
-				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => {}}>CREATE ACCOUNT</a>
-				</li>
+				{isLogin && (
+					<>
+						<li className={styles.nameItem}>
+							<a className={styles.nameItemAnchor} onClick={() => history.push("/user/home") }>User Home</a>
+						</li><li className={styles.nameItem}>
+							<a className={styles.nameItemAnchor} onClick={logOutOnClick}>Log Out</a>
+						</li>
+					</>
+				)}
+				{!isLogin && (
+					<>
+						<li className={styles.nameItem}>
+							<a className={styles.nameItemAnchor} onClick={() => history.push("/user/login") }>SIGN IN</a>
+						</li><li className={styles.nameItem}>
+							<a className={styles.nameItemAnchor} onClick={() => history.push("/user/signup") }>CREATE ACCOUNT</a>
+						</li>
+					</>
+				)}
 			</ul>
 		</div>
 	);
@@ -166,9 +185,15 @@ const Header: React.FC<IHeaderProps> = ({
 							Store
 							</a>
 							<Dropdown overlay={signInMenu} trigger={["hover"]}>
-								<a className={styles.topHeaderItem} href="/user/login">
-								Sign In
-								</a>
+								{isLogin ? (
+									<a className={styles.topHeaderItem} href="/user/home">
+										User
+									</a>
+								) : (
+									<a className={styles.topHeaderItem} href="/user/login">
+										Sign In
+									</a>
+								)}
 							</Dropdown>
 							<SearchOutlined className={styles.topHeaderIcon}/>
 							<HeartOutlined className={styles.topHeaderIcon}/>
@@ -184,6 +209,5 @@ const Header: React.FC<IHeaderProps> = ({
 };
 
 export default connect(({ user }: IStoreState) => ({
-	userId: user.userId,
-	userName: user.userName
+	isLogin: user.id !== null && user.id !== ""
 }))(Header);

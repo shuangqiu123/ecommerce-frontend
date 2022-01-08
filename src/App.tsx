@@ -49,7 +49,7 @@ const App: React.FC = () => {
 				<Route path="/checkout">
 					<Checkout />
 				</Route>
-				<Route path="/oauth/:origin">
+				<Route path="/user/oauth/:origin">
 					<OAuth />
 				</Route>
 				<Route component={Error} />

@@ -1,15 +1,26 @@
 import BasicLayout from "@/layout/BasicLayout";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import FormContainer from "@/components/Form";
 import styles from "./ForgotPassword.less";
 import { Form, Input } from "antd";
 import Button from "@/components/Button";
 import { EUserActionTypes } from "@/common/User";
+import Confirmation from "@/components/Confirmation";
+
+const Confirm = (
+	<Confirmation
+		title="Reset Your Password"
+		description="An email has been sent to your mail box. Please follow the prompt in the email to reset your password."
+		buttonName="Return To Home"
+		address="/"
+	/>
+);
 
 const ForgotPassword: React.FC = () => {
 	const [form] = Form.useForm();
 	const dispatch = useDispatch();
+	const [success, setSuccess] = useState<boolean>(false);
 
 	const onSubmit = () => {
 		form.validateFields().then(value => {
@@ -18,7 +29,7 @@ const ForgotPassword: React.FC = () => {
 				type: EUserActionTypes.forgotPassword,
 				payload: payload
 			});
-			form.resetFields();
+			setSuccess(true);
 		});
 	};
 
@@ -52,13 +63,15 @@ const ForgotPassword: React.FC = () => {
 		</FormContainer>
 	);
 
-	return (
+	const emailForm = (
 		<BasicLayout flexbox>
 			<div className={styles.container}>
 				{EmailInput}
 			</div>
 		</BasicLayout>
 	);
+
+	return success ? Confirm : emailForm;
 };
 
 export default ForgotPassword;

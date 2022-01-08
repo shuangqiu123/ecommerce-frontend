@@ -2,15 +2,12 @@ import { User } from "@/interface/User";
 import request from "@/util/request";
 
 export async function google(): Promise<string> {
-	return request
-		.get("/auth/oauth/google")
-		.then(res => res.data);
+	return request.get("/user/login/google/url");
 }
 
 export async function googleToken(code: string): Promise<User> {
 	return request
-		.post("/auth/oauth/google/token", {
+		.post("/user/login/google/code", {
 			code
-		})
-		.then(res => res.data);
+		});
 }

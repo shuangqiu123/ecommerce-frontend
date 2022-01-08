@@ -23,7 +23,8 @@ const Login: React.FC = () => {
 			.then(values => {
 				const loginForm: IUserLoginRequest = {
 					username: values.username,
-					password: values.password
+					password: values.password,
+					rememberMe: values.remember
 				};
 
 				dispatch({
@@ -50,7 +51,10 @@ const Login: React.FC = () => {
 	const googleOnClick = () => {
 		dispatch({
 			type: EOAuthActionTypes.googleSignIn,
-			callback: (url: string) => {
+			callback: (url?: string) => {
+				if (!url) {
+					return;
+				}
 				window.location.href = url;
 			}
 		});

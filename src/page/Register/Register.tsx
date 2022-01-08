@@ -14,16 +14,14 @@ import GoogleOutlined from "@ant-design/icons/GoogleOutlined";
 import Icon from "@/components/Icon";
 
 interface IRegisterProps {
-	userName: string;
+	username: string;
 	email: string;
-	name: string;
 	oauthSignUp: boolean;
 }
 
 const Register: React.FC<IRegisterProps> = ({
-	userName,
+	username,
 	email,
-	name,
 	oauthSignUp
 }) => {
 	const [form] = AntForm.useForm();
@@ -33,7 +31,10 @@ const Register: React.FC<IRegisterProps> = ({
 	const googleOnClick = () => {
 		dispatch({
 			type: EOAuthActionTypes.googleSignIn,
-			callback: (url: string) => {
+			callback: (url?: string) => {
+				if (!url) {
+					return;
+				}
 				window.location.href = url;
 			}
 		});
@@ -154,7 +155,6 @@ const Register: React.FC<IRegisterProps> = ({
 
 export default connect(({ user }: IStoreState) => ({
 	email: user.email,
-	name: user.name,
-	userName: user.userName,
+	username: user.username,
 	oauthSignUp: user.email.length > 0,
 }))(Register);

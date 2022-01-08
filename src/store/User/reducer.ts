@@ -5,11 +5,10 @@ import { Reducer } from "redux";
 import { AnyAction, ReducersMapObject } from "redux";
 
 const initialState: IUserStoreState = {
-	userId: "",
-	userName: "",
-	tags: [],
+	id: "",
+	username: "",
 	email: "",
-	name: "",
+	isverified: "N"
 };
 
 const setUser: Reducer<IUserStoreState, IAction<User>> = (
