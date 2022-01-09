@@ -22,6 +22,12 @@ const App: React.FC = () => {
 				<Route exact path="/">
 					<HomePage />
 				</Route>
+				<Route exact path="/newIn">
+					<HomePage category={0}/>
+				</Route>
+				<Route exact path="/popular">
+					<HomePage category={1} />
+				</Route>
 				<Route exact path="/user/login">
 					<Login />
 				</Route>

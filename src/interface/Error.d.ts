@@ -1,3 +1,4 @@
 export interface IErrorStoreState {
-	pageError: boolean
+	pageError: boolean;
+	tokenError: boolean;
 }
