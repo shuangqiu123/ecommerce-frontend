@@ -1,3 +1,4 @@
 export enum EErrorActionTypes {
-	setPageError= "setPageError"
+	setPageError = "setPageError",
+	tokenError = "error/tokenError"
 }

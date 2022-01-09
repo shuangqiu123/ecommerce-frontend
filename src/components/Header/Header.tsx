@@ -41,7 +41,7 @@ const Header: React.FC<IHeaderProps> = ({
 	}, [up, down, top]);
 
 	useEffect(() => {
-		if (viewport > 768) return;
+		if (viewport > 992) return;
 		const dropdownContainer = dropdownRef.current;
 		const style = dropdownContainer?.style;
 		const children = dropdownContainer?.firstElementChild?.children;
@@ -121,16 +121,10 @@ const Header: React.FC<IHeaderProps> = ({
 					</a>
 					<ul className={styles.nameList}>
 						<li className={styles.nameItem}>
-							<a className={styles.nameItemAnchor} onClick={() => {}}>NEW IN</a>
+							<a className={styles.nameItemAnchor} onClick={() => history.push("/newIn")}>NEW IN</a>
 						</li>
 						<li className={styles.nameItem}>
-							<a className={styles.nameItemAnchor} onClick={() => {}}>OFFERS</a>
-						</li>
-						<li className={styles.nameItem}>
-							<a className={styles.nameItemAnchor} onClick={() => {}}>POPULAR</a>
-						</li>
-						<li className={styles.nameItem}>
-							<a className={styles.nameItemAnchor} onClick={() => {}}>CLOTHES</a>
+							<a className={styles.nameItemAnchor} onClick={() => history.push("/popular")}>POPULAR</a>
 						</li>
 					</ul>
 				</div>
@@ -142,16 +136,10 @@ const Header: React.FC<IHeaderProps> = ({
 		<div ref={dropdownRef} className={classnames(styles.dropdown, visible ? styles.show : styles.hide)}>
 			<ul className={styles.nameList}>
 				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => {}}>NEW IN</a>
+					<a className={styles.nameItemAnchor} onClick={() => history.push("/newIn")}>NEW IN</a>
 				</li>
 				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => {}}>OFFERS</a>
-				</li>
-				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => {}}>POPULAR</a>
-				</li>
-				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => {}}>CLOTHES</a>
+					<a className={styles.nameItemAnchor} onClick={() => history.push("/popular")}>POPULAR</a>
 				</li>
 				{isLogin && (
 					<>
@@ -201,9 +189,9 @@ const Header: React.FC<IHeaderProps> = ({
 						</div>
 					</div>
 				</div>
-				{viewport <= 768 ? headerSmall : headerLarge}
+				{viewport <= 992 ? headerSmall : headerLarge}
 			</header>
-			{viewport <= 768 && dropdown}
+			{viewport <= 992 && dropdown}
 		</div>
 	);
 };

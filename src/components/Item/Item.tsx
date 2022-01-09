@@ -1,32 +1,47 @@
 import React from "react";
 import styles from "./Item.less";
-import image from "@/asset/image.jpg";
 import HeartOutlined from "@ant-design/icons/HeartOutlined";
 import ShoppingOutlined from "@ant-design/icons/ShoppingOutlined";
+import { useHistory } from "react-router-dom";
 
-const Item: React.FC= () => {
+interface IItemProps {
+	image: string;
+	isNewIn: boolean;
+	num: number;
+	price: number;
+	title: string;
+}
+
+const Item: React.FC<IItemProps> = ({
+	image,
+	isNewIn,
+	num,
+	price,
+	title
+}) => {
+	const history = useHistory();
 	return (
 		<div className={styles.itemContainer}>
 			<div className={styles.item}>
-				<a href="/item">
+				<div className={styles.imageContainer} onClick={() => history.push("/item")}>
 					<img src={image} alt="The item" className={styles.image} />
-				</a>
+				</div>
 				<div className={styles.icons}>
 					<HeartOutlined className={styles.icon} />
 					<ShoppingOutlined className={styles.icon} />
 				</div>
 				<div className={styles.click}>
 					<div className={styles.firstLine}>
-						<span className={styles.title}>Switch Pro Controller</span>
+						<span className={styles.title}>{title}</span>
 					</div>
 					<div>
-						<span className={styles.price}>$12.00</span>
+						<span className={styles.price}>${Number(price).toFixed(2)}</span>
 					</div>
 					<div>
-						<span className={styles.description}>Shop Today</span>
+						<span className={styles.description}>{num === 0 ? "Out Of Stock" : "Shop Today"}</span>
 					</div>
 					<div>
-						<span className={styles.description}>New In</span>
+						<span className={styles.description}>{isNewIn ? "New In" : ""}</span>
 					</div>
 				</div>
 			</div>

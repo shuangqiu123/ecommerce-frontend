@@ -1,7 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { notification } from "antd";
+import { setItem } from "./localstorage";
 
 const HOST = process.env.REACT_APP_SERVER_HOST;
-const token = localStorage.getItem("demostore/token") || "";
+const token = localStorage.getItem("/demostore/token") || "";
 
 export interface IResponse<T> {
 	data?: T;
@@ -46,18 +48,30 @@ httpClient.interceptors.response.use(
 			};
 		}
 		else if (status === 401) {
-			// use redux
+			notification.error({
+				message: "Unauthorised request",
+				duration: 3,
+			});
 			return;
 		}
 		else if (status === 403) {
-			// use redux
+			setItem("/demostore/user", null);
+			notification.error({
+				message: "Token has expired.",
+				duration: 2,
+			});
+			setTimeout(() => {
+				window.location.href = "/user/login";
+			}, 2500);
 			return;
 		}
 		else if (status >= 500) {
-			// use redux
+			notification.error({
+				message: "Server Error: " + status,
+				duration: 3,
+			});
 			return;
 		}
-
 		return null;
 	}
 );
