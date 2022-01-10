@@ -1,5 +1,6 @@
 import { AnyAction } from "redux";
 import { IErrorStoreState } from "./Error";
+import { IItemStoreState } from "./Item";
 import { ILoadingStoreState } from "./Loading";
 import { IUserStoreState } from "./User";
 
@@ -11,4 +12,5 @@ export interface IStoreState {
 	user: IUserStoreState;
 	loading: ILoadingStoreState;
 	error: IErrorStoreState;
+	item: IItemStoreState;
 }

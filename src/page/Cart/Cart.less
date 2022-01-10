@@ -111,7 +111,14 @@
 
 .emptyCartContainer {
 	text-align: center;
-	padding: 0 1rem;
+	padding: 10rem 1rem 0 1rem;
+	max-width: 50rem;
+	margin: 0 auto;
+	
+	@media (max-width: @screen-lg) {
+		padding-top: 5rem;
+	}
+
 	.icon {
 		font-size: 3rem;
 		margin-bottom: 1rem;

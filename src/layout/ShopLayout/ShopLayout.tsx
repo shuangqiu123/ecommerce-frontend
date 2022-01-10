@@ -5,7 +5,7 @@ import styles from "./ShopLayout.less";
 
 export interface BreadCrumbFill {
 	name: string;
-	path: string;
+	path?: string;
 }
 
 interface IShopLayoutProps {
@@ -23,7 +23,12 @@ const ShopLayout: React.FC<IShopLayoutProps> = ({
 					<Breadcrumb>
 						<Breadcrumb.Item href="/">Home</Breadcrumb.Item>
 						{breadCrumb?.map((value) => (
-							<Breadcrumb.Item href={value.path} >{value.name}</Breadcrumb.Item>
+							<>
+								{value.path ? 
+										(<Breadcrumb.Item href={value.path} >{value.name}</Breadcrumb.Item>) :
+										(<Breadcrumb.Item >{value.name}</Breadcrumb.Item>)
+								}
+							</>
 						))}
 					</Breadcrumb>
 				</div>

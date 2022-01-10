@@ -1,6 +1,6 @@
 import ShopLayout from "@/layout/ShopLayout";
 import React from "react";
-import { TabularItem as Item } from "@/components/Item";
+// import { TabularItem as Item } from "@/components/Item";
 import styles from "./Checkout.less";
 import { Checkbox, Form, Input, Select } from "antd";
 import Button from "@/components/Button";
@@ -12,14 +12,16 @@ const Checkout: React.FC = () => {
 	const [form] = Form.useForm();
 
 	return (
-		<ShopLayout>
+		<ShopLayout breadCrumb={[{
+			name: "Check Out"
+		}]}>
 			<div className={styles.container}>
 				<div className={styles.form}>
 					<h2 className={styles.title}>Delivery Address</h2>
 					<Form
 						layout={"vertical"}
 						form={form}
-						validateTrigger="onFinish"
+						validateTrigger="onBlur"
 					>
 						<Form.Item
 							label="First Name"
@@ -108,7 +110,7 @@ const Checkout: React.FC = () => {
 					</h1>
 					<div className={styles.itemContainer}>
 						<ul className={styles.itemList}>
-							<li className={styles.item}>
+							{/* <li className={styles.item}>
 								<Item checkout quantity={1}/>
 							</li>
 							<li className={styles.item}>
@@ -116,7 +118,7 @@ const Checkout: React.FC = () => {
 							</li>
 							<li className={styles.item}>
 								<Item checkout quantity={1}/>
-							</li>
+							</li> */}
 						</ul>
 					</div>
 					<div className={styles.summary}>

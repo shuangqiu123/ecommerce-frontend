@@ -6,5 +6,9 @@ export async function batchGetItem(itemBatchPostRequest: IItemBatchPostRequest):
 } 
 
 export async function getItemById(id: string): Promise<IItemDisplay> {
-	return request.get("/item/getItemById/" + id);
+	return request.get("/item/getItemsById?ids=" + id);
+}
+
+export async function getItemsById(ids: string[]): Promise<IItemDisplay[]> {
+	return request.get("/item/getItemsById?ids=" + ids.join(","));
 }

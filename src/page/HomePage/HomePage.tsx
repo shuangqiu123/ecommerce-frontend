@@ -119,6 +119,8 @@ const HomePage: React.FC<IHomePageProps> = ({
 								isNewIn={value.isNewIn}
 								num={value.num}
 								image={value.image.split(";")[0]}
+								id={value.id}
+								breadcrumb={breadCrumb}
 							/>
 						);
 					})}
