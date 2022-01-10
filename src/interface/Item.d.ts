@@ -22,13 +22,25 @@ interface IItemBatchDisplay {
 	image: string;
 }
 
+interface IItemLocalStorage {
+	id: string;
+	quantity: number;
+}
+
 interface IItemDisplay {
 	id: string;
-	name: string;
-	price: string;
-	stock: number;
+	title: string;
+	price: number;
+	num: number;
 	isNewIn: boolean;
-	thumbnail: string;
+	image: string;
+	description: string;
+	brand: string;
+	quantity?: number;
+}
+
+interface IItemStoreState {
+	cartItems: IItemLocalStorage[]
 }
 
 enum Sort {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useRef } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { IStoreState } from "@/interface/Redux";
 import SearchOutlined from "@ant-design/icons/SearchOutlined";
@@ -13,7 +13,7 @@ import { useScroll } from "@/hook/useScroll";
 import styles from "./Header.less";
 import classnames from "classnames";
 import { useViewport } from "@/hook/useViewport";
-import { Dropdown, Menu } from "antd";
+import { Badge, Dropdown, Menu } from "antd";
 import { EUserActionTypes } from "@/common/User";
 
 interface IHeaderProps {
@@ -28,6 +28,7 @@ const Header: React.FC<IHeaderProps> = ({
 	const [pin, setPin] = useState("");
 	const [up, down, top] = useScroll();
 	const [viewport] = useViewport();
+	const count = useSelector(({ item }: IStoreState) => item.cartItems.length);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const history = useHistory();
 
@@ -105,7 +106,7 @@ const Header: React.FC<IHeaderProps> = ({
 					</a>
 					<div>
 						<HeartOutlined className={styles.bottomHeaderIcon}/>
-						<ShoppingOutlined className={styles.bottomHeaderIcon} onClick={() => history.push("/cart")}/>
+						<Badge count={count} offset={[-28, 32]} size="small" color="blue"><ShoppingOutlined className={styles.bottomHeaderIcon} onClick={() => history.push("/cart")}/></Badge>
 					</div>
 				</div>
 			</div>
@@ -185,7 +186,7 @@ const Header: React.FC<IHeaderProps> = ({
 							</Dropdown>
 							<SearchOutlined className={styles.topHeaderIcon}/>
 							<HeartOutlined className={styles.topHeaderIcon}/>
-							<ShoppingOutlined className={styles.topHeaderIcon} onClick={() => history.push("/cart")}/>
+							<Badge count={count} size="small" offset={[-44, 32]} color="blue"><ShoppingOutlined className={styles.topHeaderIcon} onClick={() => history.push("/cart")}/></Badge>
 						</div>
 					</div>
 				</div>
