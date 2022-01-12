@@ -22,6 +22,9 @@ const App: React.FC = () => {
 				<Route exact path="/">
 					<HomePage />
 				</Route>
+				<Route exact path="/checkout/:orderId">
+					<Checkout />
+				</Route>
 				<Route exact path="/newIn">
 					<HomePage category={0}/>
 				</Route>
@@ -49,11 +52,8 @@ const App: React.FC = () => {
 				<Route path="/item">
 					<ItemPage />
 				</Route>
-				<Route path="/cart">
+				<Route exact path="/cart">
 					<Cart />
-				</Route>
-				<Route path="/checkout">
-					<Checkout />
 				</Route>
 				<Route path="/user/oauth/:origin">
 					<OAuth />

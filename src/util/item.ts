@@ -31,4 +31,9 @@ const removeItemFromCart = (id: string): void => {
 	setItem("/demostore/cart", items?.filter((item) => item.id !== id));
 };
 
-export { addItemIntoCart, getItemsFromCart, removeItemFromCart };
+const setCart = (items: IItemLocalStorage[] | undefined): void => {
+	if (!items) return;
+	setItem("/demostore/cart", items);
+};
+
+export { addItemIntoCart, getItemsFromCart, removeItemFromCart, setCart };

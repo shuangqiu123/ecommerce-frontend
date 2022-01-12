@@ -1,9 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { notification } from "antd";
-import { setItem } from "./localstorage";
+import { getItem, setItem } from "./localstorage";
+import { User } from "@/interface/User";
 
 const HOST = process.env.REACT_APP_SERVER_HOST;
-const token = localStorage.getItem("/demostore/token") || "";
+const user: User | null = getItem("/demostore/user");
+const token = user?.authToken;
 
 export interface IResponse<T> {
 	data?: T;
@@ -15,7 +17,7 @@ const httpClient = axios.create({
 	baseURL: `${HOST}/`,
 	headers: {
 		"Content-type": "application/json; charset=utf-8",
-		"Authorization": token
+		"Authorization": token ? `Bearer ${token}` : ""
 	}
 });
 
@@ -48,13 +50,6 @@ httpClient.interceptors.response.use(
 			};
 		}
 		else if (status === 401) {
-			notification.error({
-				message: "Unauthorised request",
-				duration: 3,
-			});
-			return;
-		}
-		else if (status === 403) {
 			setItem("/demostore/user", null);
 			notification.error({
 				message: "Token has expired.",
@@ -63,6 +58,13 @@ httpClient.interceptors.response.use(
 			setTimeout(() => {
 				window.location.href = "/user/login";
 			}, 2500);
+			return;
+		}
+		else if (status === 403) {
+			notification.error({
+				message: "Access Denied",
+				duration: 3,
+			});
 			return;
 		}
 		else if (status >= 500) {

@@ -60,7 +60,6 @@ const HomePage: React.FC<IHomePageProps> = ({
 			},
 			callback: (itemMetadata: IItemMetadata) => {
 				setTotal(itemMetadata.total);
-				console.log(itemMetadata.itemBatchDisplayList[0]);
 				setItemDisplayList(itemMetadata.itemBatchDisplayList);
 			}
 		});

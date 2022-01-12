@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { EItemActionType } from "@/common/Item";
 import { IItemDisplay } from "@/interface/Item";
 import { IStoreState } from "@/interface/Redux";
+import { EOrderActionTypes } from "@/common/Order";
 
 const Cart: React.FC = () => {
 	const history = useHistory();
@@ -29,6 +30,7 @@ const Cart: React.FC = () => {
 				setItems(items);
 			}
 		});
+		return () => { setItems([]); };
 	}, [dispatch, cartItems]);
 
 	const showModal = () => {
@@ -44,6 +46,13 @@ const Cart: React.FC = () => {
 			showModal();
 			return;
 		}
+		dispatch({
+			type: EOrderActionTypes.createOrder,
+			callback: (id?: string) => {
+				if (!id) return;
+				history.push("/checkout/" + id);
+			}
+		});
 	};
 
 	const getQuantity = (id: string) => {
