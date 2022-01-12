@@ -9,7 +9,6 @@ import { setUser } from "../User/action";
 
 function* googleSignInEffect({ callback }: IAction<string>) {
 	const url: IResponse<string> = yield call(google);
-	console.log(url);
 	callback?.(url.data);
 }
 

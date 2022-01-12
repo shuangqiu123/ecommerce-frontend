@@ -9,7 +9,7 @@ interface IItemProps {
 	image: string;
 	brand: string;
 	price: number;
-	num: number;
+	num?: number;
 	id: string;
 	onChange: (quantity: number, id: string) => void;
 }

@@ -3,6 +3,7 @@ export interface User {
 	username: string;
 	email: string;
 	isverified?: string;
+	authToken: string;
 }
 
 export interface IUserStoreState {
