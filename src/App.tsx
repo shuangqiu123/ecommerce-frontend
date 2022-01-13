@@ -14,6 +14,8 @@ import Cart from "@/page/Cart";
 import Error from "@/page/Error";
 import ResetPassword from "@/page/ResetPassword";
 import Checkout from "@/page/Checkout";
+import { PaymentSuccess } from "@/page/Payment";
+import { Success } from "@/page/Order";
 
 const App: React.FC = () => {
 	return (
@@ -57,6 +59,12 @@ const App: React.FC = () => {
 				</Route>
 				<Route path="/user/oauth/:origin">
 					<OAuth />
+				</Route>
+				<Route path="/payment/:orderId/success">
+					<PaymentSuccess />
+				</Route>
+				<Route exact path="/order/success">
+					<Success />
 				</Route>
 				<Route component={Error} />
 			</Switch>

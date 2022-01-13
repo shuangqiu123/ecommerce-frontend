@@ -1,4 +1,4 @@
-import { IOrderCreateRequest, IOrderCreateResponse, IOrderGetResponse } from "@/interface/Order";
+import { IOrderCreateRequest, IOrderCreateResponse, IOrderGetResponse, IOrderCompletionRequest, IOrderCompletionResponse, IOrderPaymentRequest } from "@/interface/Order";
 import request from "@/util/request";
 
 export async function createOrder(payload: IOrderCreateRequest): Promise<IOrderCreateResponse> {
@@ -7,4 +7,12 @@ export async function createOrder(payload: IOrderCreateRequest): Promise<IOrderC
 
 export async function getOrder(payload: string): Promise<IOrderGetResponse> {
 	return request.get("/order/getOrder?orderId=" + payload);
+}
+
+export async function getOrderPayment(payload: IOrderCompletionRequest): Promise<IOrderCompletionResponse> {
+	return request.post("/order/getOrderPayment", payload);
+}
+
+export async function payOrder(payload: IOrderPaymentRequest): Promise<IOrderCompletionResponse> {
+	return request.post("/order/payOrder", payload);
 }
