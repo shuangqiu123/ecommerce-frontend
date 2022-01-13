@@ -1,9 +1,9 @@
 import { EItemActionType } from "@/common/Item";
 import { EOrderActionTypes } from "@/common/Order";
 import { IItemLocalStorage } from "@/interface/Item";
-import { IOrderCreateResponse, IOrderGetResponse } from "@/interface/Order";
+import { IOrderCreateResponse, IOrderGetResponse, IOrderCompletionRequest, IOrderCompletionResponse, IOrderPaymentRequest } from "@/interface/Order";
 import { IAction } from "@/interface/Redux";
-import { createOrder, getOrder } from "@/service/Order";
+import { createOrder, getOrder, getOrderPayment, payOrder } from "@/service/Order";
 import { getItemsFromCart, setCart } from "@/util/item";
 import { IResponse } from "@/util/request";
 import { call, ForkEffect, put, takeEvery } from "@redux-saga/core/effects";
@@ -40,13 +40,68 @@ function* getOrderEffect({ payload, callback }: IAction<string>) {
 	const response: IResponse<IOrderGetResponse> = yield call(getOrder, payload);
 	yield put(setLoading(false));
 	if (response.status === 404) {
+		// need proper error definition
 		callback?.();
 		return;
 	}
 	callback?.(response.data);
 }
 
+function* getOrderPaymentEffect({ payload, callback }: IAction<IOrderCompletionRequest>) {
+	if (!payload) return;
+	yield put(setLoading(true));
+	const response: IResponse<IOrderCompletionResponse> = yield call(getOrderPayment, payload);
+	yield put(setLoading(false));
+	if (response.status === 404) {
+		notification.error({
+			message: response.error?.order,
+			duration: 3,
+		});	
+		callback?.(null, response.error?.order);
+		return;
+	}
+	if (response.data?.isChanged) {
+		notification.error({
+			message: "Some items have been updated due to low stock or out of stock. Please review again.",
+			duration: 3,
+		});	
+	}
+	callback?.(response.data, null);
+}
+
+function* payOrderEffect({ payload, callback }: IAction<IOrderPaymentRequest>) {
+	if (!payload) return;
+	yield put(setLoading(true));
+	const response: IResponse<IOrderCompletionResponse> = yield call(payOrder, payload);
+	yield put(setLoading(false));
+	if (response.status === 404) {
+		if (response.error?.order) {
+			notification.error({
+				message: response.error?.order,
+				duration: 3,
+			});	
+		}
+		else if (response.error?.payment) {
+			notification.error({
+				message: response.error?.payment,
+				duration: 3,
+			});	
+		}
+		callback?.(null, response.error);
+		return;
+	}
+	if (response.data?.isChanged) {
+		notification.error({
+			message: "Some items have been updated due to low stock or out of stock. Please review again.",
+			duration: 3,
+		});	
+	}
+	callback?.(response.data, null);
+}
+
 export default function* watchUser(): Generator<ForkEffect<never>, void, unknown> {
 	yield takeEvery(EOrderActionTypes.createOrder, createOrderEffect);
 	yield takeEvery(EOrderActionTypes.getOrder, getOrderEffect);
+	yield takeEvery(EOrderActionTypes.getOrderPayment, getOrderPaymentEffect);
+	yield takeEvery(EOrderActionTypes.payOrder, payOrderEffect);
 }

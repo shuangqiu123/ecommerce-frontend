@@ -2,14 +2,15 @@ import ShopLayout from "@/layout/ShopLayout";
 import React, { useEffect, useState } from "react";
 import { TabularItem as Item } from "@/components/Item";
 import styles from "./Checkout.less";
-import { Checkbox, Form, Input, Select } from "antd";
+import { Checkbox, Form, Input, Modal, Select } from "antd";
 import Button from "@/components/Button";
 import { useDispatch } from "react-redux";
 import { EOrderActionTypes } from "@/common/Order";
 import { useHistory, Prompt } from "react-router-dom";
 import { IItemDisplay } from "@/interface/Item";
+import CopyOutlined from "@ant-design/icons/CopyOutlined";
 import Error from "@/components/Error";
-import { IOrderGetResponse } from "@/interface/Order";
+import { IOrderGetResponse, IOrderCompletionResponse, IOrderShipping, IOrderShippingForm } from "@/interface/Order";
 
 const { Option } = Select;
 const states = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"];
@@ -21,11 +22,11 @@ const Checkout: React.FC = () => {
 	const [error, setError] = useState<boolean>(false);
 	const [price, setPrice] = useState<number>(0);
 	const [items, setItems] = useState<IItemDisplay[]>([]);
+	const [isModalVisible, setIsModalVisible] = useState(false);
 	
 	useEffect(() => {
 		const path = history.location.pathname;
 		const orderId = path.split("/")[2];
-		console.log(orderId);
 		if (!orderId) {
 			setError(true);
 			return;
@@ -45,7 +46,47 @@ const Checkout: React.FC = () => {
 	}, [dispatch, history]);
 
 	const checkoutOnClick = () => {
-		// 
+		form.validateFields()
+			.then(values => {
+				setIsModalVisible(true);
+			});
+	};
+
+	const handleOk = () => {
+		const values: IOrderShippingForm = form.getFieldsValue();
+		const path = history.location.pathname;
+		const orderId = path.split("/")[2];
+		const ordershipping: IOrderShipping = {
+			receiverAddress: values.streetaddress1 + " " + values.streetaddress2,
+			receiverCity: values.suburb,
+			receiverName: values.firstname + " " + values.lastname,
+			receiverState: values.state,
+			receiverZip: values.postcode
+		};
+		dispatch({
+			type: EOrderActionTypes.getOrderPayment,
+			payload: {
+				orderId: orderId,
+				shippingDto: ordershipping
+			},
+			callback: (data?: IOrderCompletionResponse, error?: string) => {
+				if (error) {
+					history.push("/user/home");
+					return;
+				}
+				if (data?.isChanged && data.items !== void(0) ) {
+					setItems(data.items);
+					return;
+				}
+				if (!data?.url) return;
+				window.location.href = data?.url;
+			}
+		});
+		setIsModalVisible(false);
+	};
+
+	const handleCancel = () => {
+		setIsModalVisible(false);
 	};
 
 	const checkout = (
@@ -166,6 +207,31 @@ const Checkout: React.FC = () => {
 					<span className={styles.price}>${Number(price).toFixed(2)}</span>
 				</div>
 			</div>
+			<Modal
+				title="You will be directed to Paypal Sandbox Payment"
+				visible={isModalVisible}
+				onOk={handleOk}
+				okText="Continue To Payment"
+				onCancel={handleCancel}
+				cancelText="Go Back"
+			>
+				<p>To complete the payment, you will be directed to Paypal Sandbox. Please use the sample account below to make the mock payment.</p>
+				<Form
+					layout={"vertical"}
+					validateTrigger="onBlur"
+				>
+					<Form.Item label="Email">
+						<Input.Search
+							value={"sample@123.com"}
+							onSearch={(value) => {navigator.clipboard.writeText(value);} }
+							enterButton={<CopyOutlined />}
+						/>
+					</Form.Item>
+					<Form.Item label="Password">
+						<Input value={"123456789"}/>
+					</Form.Item>
+				</Form>
+			</Modal>
 		</div>
 	);
 
