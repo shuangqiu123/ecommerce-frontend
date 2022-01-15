@@ -1,6 +1,9 @@
+import { EOrderActionTypes } from "@/common/Order";
 import Button from "@/components/Button";
+import { IOrderShippingForm } from "@/interface/Order";
 import { Form, Input, Select } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./Shipping.less";
 
 const { Option } = Select;
@@ -8,10 +11,24 @@ const states = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"];
 
 const Shipping: React.FC = () => {
 	const [form] = Form.useForm();
-
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch({
+			type: EOrderActionTypes.getShippingInfo,
+			callback: (info: IOrderShippingForm) => {
+				form.setFieldsValue(info);
+			}
+		});
+	}, [dispatch, form]);
 
 	const onSubmit = () => {
-		//
+		form.validateFields()
+			.then(values => {
+				dispatch({
+					type: EOrderActionTypes.saveShippingInfo,
+					payload: values
+				});
+			});
 	};
 
 	return (

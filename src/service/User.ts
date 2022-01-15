@@ -31,3 +31,7 @@ export async function verifyEmail(token: string): Promise<void> {
 		}
 	});
 }
+
+export async function changePassword(resetPasswordRequest: IUserResetPasswordRequest): Promise<void> {
+	return request.post("/user/changePassword", { password: resetPasswordRequest.password });
+}

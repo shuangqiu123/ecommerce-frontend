@@ -8,5 +8,6 @@ export enum EUserActionTypes {
 	resetPassword = "user/resetPassword",
 	verifyEmail = "user/verifyEmail",
 	refreshUser = "user/refreshUser",
-	logout = "user/logout"
+	logout = "user/logout",
+	changePassword = "user/changePassword"
 }

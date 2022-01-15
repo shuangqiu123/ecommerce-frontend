@@ -1,12 +1,15 @@
+import { EUserActionTypes } from "@/common/User";
 import Button from "@/components/Button";
 import { Form, Input } from "antd";
 import { Rule } from "antd/lib/form";
 import React from "react";
+import { useDispatch } from "react-redux";
 import styles from "./Password.less";
 
 const Password: React.FC = () => {
 	const [form] = Form.useForm();
-	
+	const dispatch = useDispatch();
+
 	const rePasswordValidator = (rule: Rule, value: string) => {
 		const password: string = form.getFieldValue("password");
 		if (value !== password) {
@@ -16,7 +19,18 @@ const Password: React.FC = () => {
 	};
 
 	const onSubmit = () => {
-		//
+		form.validateFields()
+			.then(values => {
+				dispatch({
+					type: EUserActionTypes.changePassword,
+					payload: {
+						password: values.password
+					},
+					callback: () => {
+						form.resetFields();
+					}
+				});
+			});
 	};
 
 	return (
