@@ -42,7 +42,6 @@ const ItemPage: React.FC = () => {
 					path: "/item/" + item.id
 				}]);
 				setItem(item);
-				console.log(item);
 			}
 		});
 	}, [history, dispatch]);

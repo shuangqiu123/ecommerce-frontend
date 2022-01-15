@@ -33,5 +33,5 @@ export interface IUserPostRequest {
 
 export interface IUserResetPasswordRequest {
 	password: string;
-	token: string;
+	token?: string;
 }

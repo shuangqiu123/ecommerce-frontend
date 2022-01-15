@@ -73,7 +73,7 @@ const Header: React.FC<IHeaderProps> = ({
 			{isLogin ? (
 				<>
 					<Menu.Item key="0">
-    		 			<a href="/user/home">Home</a>
+    		 			<a onClick={() => history.push("/user/home")}>Home</a>
     				</Menu.Item>
 					<Menu.Item key="1">
 						<a onClick={logOutOnClick}>Log Out</a>
@@ -82,11 +82,11 @@ const Header: React.FC<IHeaderProps> = ({
 			): (
 				<>
 					<Menu.Item key="0">
-			 			<a href="/user/login">Sign In</a>
+			 			<a onClick={() => history.push("/user/login")} >Sign In</a>
 					</Menu.Item>
 					<Menu.Divider />
 					<Menu.Item key="1">
-					  <a href="/user/signup">Create Account</a>
+					  <a onClick={() => history.push("/user/signup")}>Create Account</a>
 					</Menu.Item>
 				</>
 			)}
@@ -101,7 +101,7 @@ const Header: React.FC<IHeaderProps> = ({
 						<Toggler toggle={()=> setVisible((prev) => !prev)} />
 						<SearchOutlined className={styles.bottomHeaderIcon}/>
 					</div>
-					<a href="/">
+					<a onClick={() => history.push("/")}>
 						<img src={logo} className={styles.logo} alt="Website Logo" />
 					</a>
 					<div>
@@ -117,7 +117,7 @@ const Header: React.FC<IHeaderProps> = ({
 		<>
 			<div className={styles.bottomHeader}>
 				<div className={styles.bottomHeaderContainer}>
-					<a href="/">
+					<a onClick={() => history.push("/")}>
 						<img src={logo} className={styles.logo} alt="Website Logo" />
 					</a>
 					<ul className={styles.nameList}>
@@ -170,16 +170,16 @@ const Header: React.FC<IHeaderProps> = ({
 				<div className={classnames(styles.topHeader)}>
 					<div className={styles.topHeaderContainer}>
 						<div className={styles.topHeaderItemContainer}>
-							<a className={styles.topHeaderItem} href="/">
+							<a className={styles.topHeaderItem} onClick={() => history.push("/")}>
 							Store
 							</a>
 							<Dropdown overlay={signInMenu} trigger={["hover"]}>
 								{isLogin ? (
-									<a className={styles.topHeaderItem} href="/user/home">
+									<a className={styles.topHeaderItem} onClick={() => history.push("/user/home")}>
 										User
 									</a>
 								) : (
-									<a className={styles.topHeaderItem} href="/user/login">
+									<a className={styles.topHeaderItem} onClick={() => history.push("/user/login")}>
 										Sign In
 									</a>
 								)}

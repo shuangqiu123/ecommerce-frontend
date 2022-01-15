@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { BreadCrumbFill } from "@/layout/ShopLayout/ShopLayout";
 import { EItemActionType } from "@/common/Item";
 import { useDispatch } from "react-redux";
+import { notification } from "antd";
 
 interface IItemProps {
 	image: string;
@@ -30,6 +31,13 @@ const Item: React.FC<IItemProps> = ({
 	const dispatch = useDispatch();
 
 	const addToCartOnClick = () => {
+		if (num === 0) {
+			notification.info({
+				message: "This item is out of stock",
+				duration: 3
+			});
+			return;
+		}
 		dispatch({
 			type: EItemActionType.addItemIntoCart,
 			payload: {
@@ -47,7 +55,7 @@ const Item: React.FC<IItemProps> = ({
 				</div>
 				<div className={styles.icons}>
 					<HeartOutlined className={styles.icon} />
-					<ShoppingOutlined className={styles.icon} onClick={addToCartOnClick}/>
+					<ShoppingOutlined className={styles.icon} onClick={addToCartOnClick} />
 				</div>
 				<div className={styles.click} onClick={() => history.push("/item/" + id)}>
 					<div className={styles.firstLine}>

@@ -42,6 +42,7 @@ interface IOrderShippingForm {
 	suburb: string;
 	state: string;
 	postcode: string;
+	remember: boolean;
 }
 
 interface IOrderPaymentRequest {

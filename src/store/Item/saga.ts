@@ -2,7 +2,7 @@ import { EItemActionType } from "@/common/Item";
 import { IItemBatchPostRequest, IItemDisplay, IItemLocalStorage, IItemMetadata } from "@/interface/Item";
 import { IAction } from "@/interface/Redux";
 import { batchGetItem, getItemById, getItemsById } from "@/service/Item";
-import { addItemIntoCart, getItemsFromCart, removeItemFromCart } from "@/util/item";
+import { addItemIntoCart, getItemsFromCart, removeItemFromCart, setCart } from "@/util/item";
 import { IResponse } from "@/util/request";
 import { call, ForkEffect, put, takeEvery } from "@redux-saga/core/effects";
 import { notification } from "antd";
@@ -28,6 +28,10 @@ function* addItemIntoCartEffect({ payload, callback }: IAction<IItemLocalStorage
 	if (!item) return;
 	if (item.num <= payload.quantity) {
 		payload.quantity = item.num;
+		notification.info({
+			message: "Maximum amount of item has been added into the cart.",
+			duration: 3
+		});
 	}
 	const success: boolean = yield call(addItemIntoCart, payload);
 	if (success) {
@@ -73,13 +77,12 @@ function* refreshCartEffect({ payload, callback }: IAction<void>) {
 
 function* updateCartEffect({ payload, callback }: IAction<IItemLocalStorage>) {
 	if (!payload) return;
-
 	if (payload.quantity === -1) {
 		yield call(removeItemFromCart, payload.id);
 	}
 	else {
-		const response: IResponse<IItemDisplay> = yield call(getItemById, payload.id);
-		const item = response.data;
+		const response: IResponse<IItemDisplay[]> = yield call(getItemById, payload.id);
+		const item = response.data?.[0];
 		if (!item) return;
 		if (item.num === 0) {
 			yield call(removeItemFromCart, payload.id);
@@ -102,7 +105,7 @@ function* updateCartEffect({ payload, callback }: IAction<IItemLocalStorage>) {
 			i.quantity = payload.quantity;
 		}
 	}
-
+	yield call(setCart, items);
 	yield put({
 		type: EItemActionType.setCart,
 		payload: items

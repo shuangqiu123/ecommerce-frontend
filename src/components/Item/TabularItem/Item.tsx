@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import styles from "./Item.less";
 import { InputNumber } from "antd";
+import { useHistory } from "react-router-dom";
 
 interface IItemProps {
 	checkout?: boolean;
@@ -25,10 +27,11 @@ const Item: React.FC<IItemProps> = ({
 	id,
 	onChange
 }) => {
+	const history = useHistory();
 	return (
 		<div className={styles.itemContainer}>
 			<div className={styles.imageWrapper}>
-				<a href={"/item/" + id}>
+				<a onClick={() => history.push("/item/" + id)}>
 					<img src={image} alt="The item" className={styles.image} />
 				</a>
 			</div>

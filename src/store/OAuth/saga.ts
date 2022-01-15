@@ -18,7 +18,7 @@ function* googleTokenEffect({ payload, callback }: IAction<string>) {
 	const user: User | undefined = response.data;
 	if (!user) return;
 	yield put(setUser(user));
-	setItem("/demostore/user", user);
+	yield call(setItem, "/demostore/user", user);
 	callback?.();
 }
 

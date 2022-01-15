@@ -11,6 +11,7 @@ import { IItemDisplay } from "@/interface/Item";
 import CopyOutlined from "@ant-design/icons/CopyOutlined";
 import Error from "@/components/Error";
 import { IOrderGetResponse, IOrderCompletionResponse, IOrderShipping, IOrderShippingForm } from "@/interface/Order";
+import { setLoading } from "@/store/Loading/action";
 
 const { Option } = Select;
 const states = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"];
@@ -22,6 +23,7 @@ const Checkout: React.FC = () => {
 	const [error, setError] = useState<boolean>(false);
 	const [price, setPrice] = useState<number>(0);
 	const [items, setItems] = useState<IItemDisplay[]>([]);
+	const [disable, setDisable] = useState<boolean>(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	
 	useEffect(() => {
@@ -43,7 +45,13 @@ const Checkout: React.FC = () => {
 				setPrice(response.price);
 			}
 		});
-	}, [dispatch, history]);
+		dispatch({
+			type: EOrderActionTypes.getShippingInfo,
+			callback: (info: IOrderShippingForm) => {
+				form.setFieldsValue(info);
+			}
+		});
+	}, [dispatch, history, form]);
 
 	const checkoutOnClick = () => {
 		form.validateFields()
@@ -63,6 +71,12 @@ const Checkout: React.FC = () => {
 			receiverState: values.state,
 			receiverZip: values.postcode
 		};
+		if (values.remember) {
+			dispatch({
+				type: EOrderActionTypes.saveShippingInfo,
+				payload: values
+			});
+		}
 		dispatch({
 			type: EOrderActionTypes.getOrderPayment,
 			payload: {
@@ -70,25 +84,31 @@ const Checkout: React.FC = () => {
 				shippingDto: ordershipping
 			},
 			callback: (data?: IOrderCompletionResponse, error?: string) => {
+				dispatch(setLoading(false));
 				if (error) {
-					history.push("/user/home");
+					history.push("/user/home/orderHistory");
 					return;
 				}
 				if (data?.isChanged && data.items !== void(0) ) {
+					if (data.items.length === 0) {
+						history.push("/user/home/orderHistory");
+						return;
+					}
 					setItems(data.items);
 					return;
 				}
 				if (!data?.url) return;
 				window.location.href = data?.url;
+				setDisable(true);
 			}
 		});
+		dispatch(setLoading(true));
 		setIsModalVisible(false);
 	};
 
 	const handleCancel = () => {
 		setIsModalVisible(false);
 	};
-
 	const checkout = (
 		<div className={styles.container}>
 			<Prompt message={"Are you sure you want to leave? Your order will be saved."}/>
@@ -107,6 +127,7 @@ const Checkout: React.FC = () => {
 						<Input
 							className={styles.input}
 							placeholder=""
+							disabled={disable}
 						/>
 					</Form.Item>
 					<Form.Item
@@ -117,6 +138,7 @@ const Checkout: React.FC = () => {
 						<Input
 							className={styles.input}
 							placeholder=""
+							disabled={disable}
 						/>
 					</Form.Item>
 					<Form.Item
@@ -127,6 +149,7 @@ const Checkout: React.FC = () => {
 						<Input
 							className={styles.input}
 							placeholder=""
+							disabled={disable}
 						/>
 					</Form.Item>
 					<Form.Item
@@ -136,6 +159,7 @@ const Checkout: React.FC = () => {
 						<Input
 							className={styles.input}
 							placeholder=""
+							disabled={disable}
 						/>
 					</Form.Item>
 					<Form.Item
@@ -146,6 +170,7 @@ const Checkout: React.FC = () => {
 						<Input
 							className={styles.input}
 							placeholder=""
+							disabled={disable}
 						/>
 					</Form.Item>
 					<Form.Item
@@ -153,7 +178,7 @@ const Checkout: React.FC = () => {
 						name="state"
 						rules={[{ required: true, message: "Please enter your state." }]}
 					>
-						<Select>
+						<Select disabled={disable}>
 							{states.map(state => (
 								<Option key={state}>{state}</Option>
 							))}
@@ -167,6 +192,7 @@ const Checkout: React.FC = () => {
 						<Input
 							className={styles.input}
 							placeholder=""
+							disabled={disable}
 						/>
 					</Form.Item>
 					<Form.Item name="remember" valuePropName="checked" >
