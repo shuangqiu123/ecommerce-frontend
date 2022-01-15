@@ -1,12 +1,12 @@
-import { Address } from "cluster";
+import { IOrderShippingForm } from "@/interface/Order";
 import { getItem, setItem } from "./localstorage";
 
-const saveAddressInformation = (address: Address): void => {
+const saveAddressInformation = (address: IOrderShippingForm): void => {
 	setItem("/demostore/address", address);
 };
 
-const getAddressInformation = (): void => {
-	getItem("/demostore/address");
+const getAddressInformation = (): IOrderShippingForm | null => {
+	return getItem("/demostore/address");
 };
 
 export { saveAddressInformation, getAddressInformation };

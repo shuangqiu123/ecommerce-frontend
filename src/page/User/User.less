@@ -1,0 +1,26 @@
+@import "~@/util/util.less";
+
+.container {
+	width: 100%;
+	display: flex;
+
+	.nav {
+		padding-top: 2.2rem;
+		flex-basis: 14rem;
+		flex-shrink: 0;
+		padding-right: 2rem;
+	}
+	
+	.wrapper {
+		flex-grow: 1;
+	}
+	
+	@media (max-width: @screen-lg) {
+		display: block;
+		.nav {
+			padding-top: 0;
+			padding-right: 0;
+			padding-bottom: 2rem;
+		}
+	}
+}

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Checkbox, Form, Input } from "antd";
@@ -7,6 +8,10 @@ import styles from "./SignIn.less";
 import Button from "@/components/Button";
 import { EUserActionTypes } from "@/common/User";
 import { IUserLoginRequest } from "@/interface/User";
+import { EOrderActionTypes } from "@/common/Order";
+import GoogleOutlined from "@ant-design/icons/GoogleOutlined";
+import Icon from "../Icon";
+import { EOAuthActionTypes } from "@/common/OAuth";
 
 const Login: React.FC = () => {
 	const [form] = Form.useForm();
@@ -41,9 +46,25 @@ const Login: React.FC = () => {
 			 ]);
 			return;
 		}
-		history.push("/");
+		dispatch({
+			type: EOrderActionTypes.createOrder,
+			callback: (id?: string) => {
+				if (!id) return;
+				history.push("/checkout/" + id);
+			}
+		});
 	};
-
+	const googleOnClick = () => {
+		dispatch({
+			type: EOAuthActionTypes.googleSignIn,
+			callback: (url?: string) => {
+				if (!url) {
+					return;
+				}
+				window.location.href = url;
+			}
+		});
+	};
 	return (
 		<CustomForm title="" className={styles.signinModal}>
 			<Form
@@ -86,11 +107,19 @@ const Login: React.FC = () => {
 				<Form.Item name="remember" valuePropName="checked" >
 					<div className={styles.linkContainer}>
 						<Checkbox>Remember me</Checkbox>
-						<a href="/user/forgotPassword" className={styles.link}>Forgot Password?</a>
+						<a onClick={() => history.push("/user/forgotPassword")} className={styles.link}>Forgot Password?</a>
 					</div>
 				</Form.Item>
 			</Form>
 			<Button name="SIGN IN" onClick={submit} reverse />
+			<div className={styles.bottomContainer}>
+				<p className={styles.text}>Or you can sign in with:</p>
+				<div className={styles.iconContainer} onClick={googleOnClick}>
+					<Icon title="google">
+						<GoogleOutlined />
+					</Icon>
+				</div>
+			</div>
 		</CustomForm>
 	);
 };

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Checkbox, Form, Input } from "antd";
 import { useHistory } from "react-router-dom";
@@ -103,14 +104,14 @@ const Login: React.FC = () => {
 					<Form.Item name="remember" valuePropName="checked" >
 						<div className={styles.linkContainer}>
 							<Checkbox>Remember me</Checkbox>
-							<a href="/user/forgotPassword" className={styles.link}>Forgot Password?</a>
+							<a onClick={() => history.push("/user/forgotPassword")} className={styles.link}>Forgot Password?</a>
 						</div>
 					</Form.Item>
 				</Form>
 				<Button name="SIGN IN" onClick={submit} reverse />
 				<div className={styles.bottomContainer}>
 					<p><span className={styles.boldText}>Need an account?</span> Sign up&nbsp;
-						<a href="/user/signup" className={styles.link}>here</a>
+						<a onClick={() => history.push("/user/signup")} className={styles.link}>here</a>
 					</p>
 					<p className={styles.text}>Or you can sign in with:</p>
 					<div className={styles.iconContainer} onClick={googleOnClick}>

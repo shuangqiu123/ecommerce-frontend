@@ -20,7 +20,7 @@ function* loginEffect({ payload, callback }: IAction<IUserLoginRequest>) {
 	if (!userResponse.data) return;
 
 	yield put(setUser(userResponse.data));
-	setItem("/demostore/user", userResponse.data);
+	yield call(setItem, "/demostore/user", userResponse.data);
 	callback?.();
 }
 
@@ -37,7 +37,7 @@ function* signupEffect({ payload, callback }: IAction<IUserPostRequest>) {
 	if (!userResponse.data) return;
 
 	yield put(setUser(userResponse.data));
-	setItem("/demostore/user", userResponse.data);
+	yield call(setItem, "/demostore/user", userResponse.data);
 	callback?.();
 }
 

@@ -1,0 +1,41 @@
+@import "~@/util/util.less";
+.navContainer {
+	.text {
+		font-family: fontm;
+		font-weight: 600;
+		font-size: .875rem;
+	}
+
+	:global {
+		.ant-menu-inline {
+			border-right: none;
+		}
+		@media (max-width: @screen-lg) {
+			.ant-menu-submenu {
+				padding-left: 0 !important;
+			}
+			.ant-menu-submenu {
+				margin-right: 1rem;
+			}
+			.ant-menu-submenu::after {
+				right: 0;
+				left: 0;
+			}
+		}
+		.ant-menu-submenu-title {
+            padding-left: 0 !important;
+        }
+
+		.ant-menu-item-only-child {
+			padding-left: 0.4rem !important;
+		}
+
+		.ant-divider-horizontal {
+			margin: 1rem 0 0.5rem 0;
+		}
+
+		.ant-divider {
+			border-top: 1px solid rgba(0, 0, 0, 0.12);
+		}
+	}
+}

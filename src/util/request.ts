@@ -4,8 +4,6 @@ import { getItem, setItem } from "./localstorage";
 import { User } from "@/interface/User";
 
 const HOST = process.env.REACT_APP_SERVER_HOST;
-const user: User | null = getItem("/demostore/user");
-const token = user?.authToken;
 
 export interface IResponse<T> {
 	data?: T;
@@ -14,17 +12,19 @@ export interface IResponse<T> {
 }
 
 const httpClient = axios.create({
-	baseURL: `${HOST}/`,
-	headers: {
-		"Content-type": "application/json; charset=utf-8",
-		"Authorization": token ? `Bearer ${token}` : ""
-	}
+	baseURL: `${HOST}/`
 });
 
 httpClient.interceptors.request.use(
 	(config: AxiosRequestConfig) => {
+		const user: User | null = getItem("/demostore/user");
+		const token = user?.authToken;
 		return {
-			...config
+			...config,
+			headers: {
+				"Content-type": "application/json; charset=utf-8",
+				"Authorization": token ? `Bearer ${token}` : ""
+			}
 		};
 	},
 	(error) => {

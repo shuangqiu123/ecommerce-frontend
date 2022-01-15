@@ -1,5 +1,5 @@
 import { EOrderActionTypes } from "@/common/Order";
-import { IItemDisplay } from "@/interface/Item";
+import { IOrderCompletionResponse } from "@/interface/Order";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
@@ -27,13 +27,18 @@ export const PaymentSuccess: React.FC = () => {
 				paymentId,
 				payerId: PayerID
 			},
-			callback: (data: IItemDisplay[] | null, error: Record<string, string>) => {
+			callback: (data: IOrderCompletionResponse | null, error: Record<string, string>) => {
 				if (error) {
 					history.push("/");
 					return;
 				}
-				if (data) {
-					history.push("/order/" + orderId);
+				if (data?.items) {
+					if (data.items.length > 0) {
+						history.push("/checkout/" + orderId);
+					}
+					else {
+						history.push("/user/home/orderHistory");
+					}
 					return;
 				}
 				history.push("/order/success");

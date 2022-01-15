@@ -16,6 +16,9 @@ import ResetPassword from "@/page/ResetPassword";
 import Checkout from "@/page/Checkout";
 import { PaymentSuccess } from "@/page/Payment";
 import { Success } from "@/page/Order";
+import Cancel from "@/page/Payment/cancel/PaymentCancel";
+import User from "@/page/User";
+import Authorized from "@/components/Authorized";
 
 const App: React.FC = () => {
 	return (
@@ -25,13 +28,20 @@ const App: React.FC = () => {
 					<HomePage />
 				</Route>
 				<Route exact path="/checkout/:orderId">
-					<Checkout />
+					<Authorized>
+						<Checkout />
+					</Authorized>
 				</Route>
 				<Route exact path="/newIn">
 					<HomePage category={0}/>
 				</Route>
 				<Route exact path="/popular">
 					<HomePage category={1} />
+				</Route>
+				<Route path="/user/home">
+					<Authorized>
+						<User />
+					</Authorized>
 				</Route>
 				<Route exact path="/user/login">
 					<Login />
@@ -61,10 +71,19 @@ const App: React.FC = () => {
 					<OAuth />
 				</Route>
 				<Route path="/payment/:orderId/success">
-					<PaymentSuccess />
+					<Authorized>
+						<PaymentSuccess />
+					</Authorized>
 				</Route>
 				<Route exact path="/order/success">
-					<Success />
+					<Authorized>
+						<Success />
+					</Authorized>
+				</Route>
+				<Route path="/payment/:orderId/cancel">
+					<Authorized>
+						<Cancel />
+					</Authorized>
 				</Route>
 				<Route component={Error} />
 			</Switch>
