@@ -24,6 +24,7 @@ const Checkout: React.FC = () => {
 	const [price, setPrice] = useState<number>(0);
 	const [items, setItems] = useState<IItemDisplay[]>([]);
 	const [disable, setDisable] = useState<boolean>(false);
+	const [viewOnly, setViewOnly] = useState<boolean>(true);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	
 	useEffect(() => {
@@ -43,6 +44,10 @@ const Checkout: React.FC = () => {
 				}
 				setItems(response.items);
 				setPrice(response.price);
+				setViewOnly(response.viewOnly);
+				if (response.viewOnly) {
+					setDisable(true);
+				}
 			}
 		});
 		dispatch({
@@ -111,7 +116,7 @@ const Checkout: React.FC = () => {
 	};
 	const checkout = (
 		<div className={styles.container}>
-			<Prompt message={"Are you sure you want to leave? Your order will be saved."}/>
+			{!viewOnly && <Prompt message={"Are you sure you want to leave? Your order will be saved."}/>}
 			<div className={styles.form}>
 				<h2 className={styles.title}>Delivery Address</h2>
 				<Form
@@ -195,14 +200,14 @@ const Checkout: React.FC = () => {
 							disabled={disable}
 						/>
 					</Form.Item>
-					<Form.Item name="remember" valuePropName="checked" >
+					{!viewOnly &&<Form.Item name="remember" valuePropName="checked" >
 						<div className={styles.linkContainer}>
 							<Checkbox>Save the information for a quicker checkout</Checkbox>
 						</div>
-					</Form.Item>
-					<Form.Item className={styles.button}>
+					</Form.Item>}
+					{!viewOnly && <Form.Item className={styles.button}>
 						<Button name="Check Out Now" onClick={checkoutOnClick} />
-					</Form.Item>
+					</Form.Item>}
 				</Form>
 			</div>
 			<div className={styles.order}>

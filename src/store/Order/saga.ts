@@ -1,9 +1,9 @@
 import { EItemActionType } from "@/common/Item";
 import { EOrderActionTypes } from "@/common/Order";
 import { IItemLocalStorage } from "@/interface/Item";
-import { IOrderCreateResponse, IOrderGetResponse, IOrderCompletionRequest, IOrderCompletionResponse, IOrderPaymentRequest, IOrderShippingForm } from "@/interface/Order";
+import { IOrderCreateResponse, IOrderGetResponse, IOrderCompletionRequest, IOrderCompletionResponse, IOrderPaymentRequest, IOrderShippingForm, IOrder } from "@/interface/Order";
 import { IAction } from "@/interface/Redux";
-import { createOrder, getOrder, getOrderPayment, payOrder } from "@/service/Order";
+import { cancelOrder, createOrder, getOrder, getOrderList, getOrderPayment, payOrder } from "@/service/Order";
 import { getItemsFromCart, setCart } from "@/util/item";
 import { getAddressInformation, saveAddressInformation } from "@/util/order";
 import { IResponse } from "@/util/request";
@@ -128,6 +128,17 @@ function* getShippingEffect({ payload, callback }: IAction<void>) {
 	callback?.(info);
 }
 
+function* getOrderListEffect({ callback }: IAction<void>) {
+	const response: IResponse<IOrder[]> = yield call(getOrderList);
+	callback?.(response.data);
+}
+
+function* cancelOrderEffect({ payload, callback }: IAction<string>) {
+	if (!payload) return;
+	yield call(cancelOrder, payload);
+	callback?.();
+}
+
 export default function* watchUser(): Generator<ForkEffect<never>, void, unknown> {
 	yield takeEvery(EOrderActionTypes.createOrder, createOrderEffect);
 	yield takeEvery(EOrderActionTypes.getOrder, getOrderEffect);
@@ -135,4 +146,6 @@ export default function* watchUser(): Generator<ForkEffect<never>, void, unknown
 	yield takeEvery(EOrderActionTypes.payOrder, payOrderEffect);
 	yield takeEvery(EOrderActionTypes.saveShippingInfo, saveShippingEffect);
 	yield takeEvery(EOrderActionTypes.getShippingInfo, getShippingEffect);
+	yield takeEvery(EOrderActionTypes.getOrderList, getOrderListEffect);
+	yield takeEvery(EOrderActionTypes.cancelOrder, cancelOrderEffect);
 }

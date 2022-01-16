@@ -4,5 +4,7 @@ export enum EOrderActionTypes {
 	payOrder = "order/payOrder",
 	getOrderPayment = "order/getOrderPayment",
 	saveShippingInfo = "order/saveShippingInfo",
-	getShippingInfo = "order/getShippingInfo"
+	getShippingInfo = "order/getShippingInfo",
+	getOrderList = "order/getOrderList",
+	cancelOrder = "order/cancelOrder"
 }

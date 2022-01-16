@@ -70,10 +70,13 @@ const HomePage: React.FC<IHomePageProps> = ({
 	};
 
 	const changeBrand = (value: string) => {
+		setPriceRangeHigh(undefined);
+		setPriceRangeLow(undefined);
 		setBrand(value);
 	};
 
 	const changePrice = (value: string) => {
+		setBrand(undefined);
 		if (value === "1") {
 			setPriceRangeLow(0);
 			setPriceRangeHigh(100);

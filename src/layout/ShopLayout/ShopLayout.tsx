@@ -23,7 +23,7 @@ const ShopLayout: React.FC<IShopLayoutProps> = ({
 			<div className={styles.homePageContainer}>
 				<div className={styles.breadCrumb}>
 					<Breadcrumb>
-						<Breadcrumb.Item onClick={() => history.push("/")}>Home</Breadcrumb.Item>
+						<Breadcrumb.Item href="/">Home</Breadcrumb.Item>
 						{breadCrumb?.map((value) => (
 							<>
 								{value.path ? 
