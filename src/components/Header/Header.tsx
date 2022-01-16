@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { IStoreState } from "@/interface/Redux";
-import SearchOutlined from "@ant-design/icons/SearchOutlined";
 import HeartOutlined from "@ant-design/icons/HeartOutlined";
 import ShoppingOutlined from "@ant-design/icons/ShoppingOutlined";
 import logo from "@/asset/icon/S.svg";
@@ -99,9 +98,8 @@ const Header: React.FC<IHeaderProps> = ({
 				<div className={classnames(styles.bottomHeaderContainer, styles.small)}>
 					<div className={styles.left}>
 						<Toggler toggle={()=> setVisible((prev) => !prev)} />
-						<SearchOutlined className={styles.bottomHeaderIcon}/>
 					</div>
-					<a onClick={() => history.push("/")}>
+					<a href="/">
 						<img src={logo} className={styles.logo} alt="Website Logo" />
 					</a>
 					<div>
@@ -117,15 +115,15 @@ const Header: React.FC<IHeaderProps> = ({
 		<>
 			<div className={styles.bottomHeader}>
 				<div className={styles.bottomHeaderContainer}>
-					<a onClick={() => history.push("/")}>
+					<a href="/">
 						<img src={logo} className={styles.logo} alt="Website Logo" />
 					</a>
 					<ul className={styles.nameList}>
 						<li className={styles.nameItem}>
-							<a className={styles.nameItemAnchor} onClick={() => history.push("/newIn")}>NEW IN</a>
+							<a className={styles.nameItemAnchor} href="/newIn">NEW IN</a>
 						</li>
 						<li className={styles.nameItem}>
-							<a className={styles.nameItemAnchor} onClick={() => history.push("/popular")}>POPULAR</a>
+							<a className={styles.nameItemAnchor} href="/popular">POPULAR</a>
 						</li>
 					</ul>
 				</div>
@@ -137,10 +135,10 @@ const Header: React.FC<IHeaderProps> = ({
 		<div ref={dropdownRef} className={classnames(styles.dropdown, visible ? styles.show : styles.hide)}>
 			<ul className={styles.nameList}>
 				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => history.push("/newIn")}>NEW IN</a>
+					<a className={styles.nameItemAnchor} href="/newIn">NEW IN</a>
 				</li>
 				<li className={styles.nameItem}>
-					<a className={styles.nameItemAnchor} onClick={() => history.push("/popular")}>POPULAR</a>
+					<a className={styles.nameItemAnchor} href="/popular">POPULAR</a>
 				</li>
 				{isLogin && (
 					<>
@@ -170,7 +168,7 @@ const Header: React.FC<IHeaderProps> = ({
 				<div className={classnames(styles.topHeader)}>
 					<div className={styles.topHeaderContainer}>
 						<div className={styles.topHeaderItemContainer}>
-							<a className={styles.topHeaderItem} onClick={() => history.push("/")}>
+							<a className={styles.topHeaderItem} href="/">
 							Store
 							</a>
 							<Dropdown overlay={signInMenu} trigger={["hover"]}>
@@ -184,7 +182,6 @@ const Header: React.FC<IHeaderProps> = ({
 									</a>
 								)}
 							</Dropdown>
-							<SearchOutlined className={styles.topHeaderIcon}/>
 							<HeartOutlined className={styles.topHeaderIcon}/>
 							<Badge count={count} size="small" offset={[-44, 32]} color="blue"><ShoppingOutlined className={styles.topHeaderIcon} onClick={() => history.push("/cart")}/></Badge>
 						</div>

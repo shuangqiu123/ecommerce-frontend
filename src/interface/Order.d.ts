@@ -13,6 +13,7 @@ interface IOrderCreateResponse {
 interface IOrderGetResponse {
 	items: IItemDisplay[];
 	price: number;
+	viewOnly: boolean;
 }
 
 interface IOrderCompletionRequest {
@@ -49,4 +50,12 @@ interface IOrderPaymentRequest {
 	orderId: string;
 	paymentId: string;
 	payerId: string;
+}
+
+interface IOrder {
+	orderId: string;
+	payment: number;
+	status: number;
+	shippingName: string;
+	createTime: string;
 }

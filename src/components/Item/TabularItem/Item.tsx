@@ -60,7 +60,7 @@ const Item: React.FC<IItemProps> = ({
 
 				<div className={styles.linkContainer}>
 					{!checkout && <span className={styles.link} onClick={()=>null}>Save for later</span>}
-					<span className={styles.link} onClick={() => onChange(-1, id)}>Remove</span>
+					{!checkout && <span className={styles.link} onClick={() => onChange(-1, id)}>Remove</span>}
 				</div>
 			</div>
 		</div>
