@@ -11,6 +11,11 @@ jobs:
           name: "Install node modules"
           command: "yarn install"
       - run:
+          name: "Create Production Environment Variables"
+          command: |
+            echo "REACT_APP_SERVER_HOST=\"$REACT_APP_SERVER_HOST\"" >> .env.production
+            echo "NODE_ENV=\"$NODE_ENV\"" >> .env.production
+      - run:
           name: "Build frontend file"
           command: "yarn build"
       - persist_to_workspace:
