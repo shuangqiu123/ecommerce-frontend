@@ -4,7 +4,10 @@ orbs:
 jobs:
   frontend-build:
     docker:
-      - image: node:16.13.1
+      - image: $IMAGE
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - run:
