@@ -130,6 +130,12 @@ function* removeSaveItemEffect({ payload, callback }: IAction<string>) {
 	});
 }
 
+function* getItemDetailsFromSaveEffect({ payload, callback }: IAction<string[]>) {
+	if (!payload) return;
+	const response:IResponse<IItemDisplay[]> = yield call(getItemsById, payload);
+	callback?.(response.data);
+}
+
 export default function* watch(): Generator<ForkEffect<never>, void, unknown> {
 	yield takeEvery(EItemActionType.batchGetItems, batchGetItemEffect);
 	yield takeEvery(EItemActionType.getItemById, getItemByIdEffect);
@@ -139,4 +145,5 @@ export default function* watch(): Generator<ForkEffect<never>, void, unknown> {
 	yield takeEvery(EItemActionType.updateCartItem, updateCartEffect);
 	yield takeEvery(EItemActionType.saveItem, saveItemEffect);
 	yield takeEvery(EItemActionType.removeSaveItem, removeSaveItemEffect);
+	yield takeEvery(EItemActionType.getItemDetailsFromSave, getItemDetailsFromSaveEffect);
 }

@@ -8,5 +8,6 @@ export enum EItemActionType {
 	updateCartItem = "item/updateCartItem",
 	setSave = "item/setSave",
 	saveItem = "item/saveItem",
-	removeSaveItem = "item/removeSaveItem"
+	removeSaveItem = "item/removeSaveItem",
+	getItemDetailsFromSave = "item/getItemDetailsFromSave"
 }
