@@ -19,6 +19,7 @@ import { Success } from "@/page/Order";
 import Cancel from "@/page/Payment/cancel/PaymentCancel";
 import User from "@/page/User";
 import Authorized from "@/components/Authorized";
+import SaveItem from "./page/SaveItem";
 
 const App: React.FC = () => {
 	return (
@@ -84,6 +85,9 @@ const App: React.FC = () => {
 					<Authorized>
 						<Cancel />
 					</Authorized>
+				</Route>
+				<Route path="/saveItem">
+					<SaveItem />
 				</Route>
 				<Route component={Error} />
 			</Switch>

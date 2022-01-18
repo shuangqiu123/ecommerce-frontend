@@ -111,7 +111,7 @@ const Cart: React.FC = () => {
 	const cart = (
 		<ShopLayout breadCrumb={[
 			{
-				name: "Check Out",
+				name: "Shopping Bag",
 				path: "/cart"
 			}
 		]}>

@@ -104,7 +104,7 @@ const Header: React.FC<IHeaderProps> = ({
 						<img src={logo} className={styles.logo} alt="Website Logo" />
 					</a>
 					<div className={styles.icons}>
-						<div className={styles.bottomHeaderIconContainer}>
+						<div className={styles.bottomHeaderIconContainer} onClick={() => history.push("/saveItem")}>
 							<Badge count={saveCount} offset={[-5, 24]} size="small" color="blue">
 								<HeartOutlined className={styles.bottomHeaderIcon}/>
 							</Badge>
@@ -191,7 +191,7 @@ const Header: React.FC<IHeaderProps> = ({
 									</a>
 								)}
 							</Dropdown>
-							<div className={styles.topHeaderIconContainer}>
+							<div className={styles.topHeaderIconContainer} onClick={() => history.push("/saveItem")}>
 								<Badge count={saveCount} offset={[-3, 24]} size="small" color="blue">
 									<HeartOutlined className={styles.topHeaderIcon}/>
 								</Badge>

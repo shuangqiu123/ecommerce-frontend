@@ -40,7 +40,7 @@ const saveItemToSave = (id: string): string[] => {
 	const items: string[] | null = getItem("/demostore/save");
 	if (!items) {
 		setItem("/demostore/save", [id]);
-		return [];
+		return [id];
 	}
 	for (const item of items) {
 		if (item === id) {
