@@ -17,6 +17,9 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
 	(config: AxiosRequestConfig) => {
+		if (config.headers.Authorization) {
+			return config;
+		}
 		const user: User | null = getItem("/demostore/user");
 		const token = user?.authToken;
 		return {

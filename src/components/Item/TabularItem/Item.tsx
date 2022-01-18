@@ -3,6 +3,9 @@ import React from "react";
 import styles from "./Item.less";
 import { InputNumber } from "antd";
 import { useHistory } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImagePlaceHolder from "@/asset/icon/ImagePlaceholder.png";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 interface IItemProps {
 	checkout?: boolean;
@@ -32,7 +35,13 @@ const Item: React.FC<IItemProps> = ({
 		<div className={styles.itemContainer}>
 			<div className={styles.imageWrapper}>
 				<a onClick={() => history.push("/item/" + id)}>
-					<img src={image} alt="The item" className={styles.image} />
+					<LazyLoadImage
+						src={image}
+						className={styles.image}
+						effect="blur"
+						placeholderSrc={ImagePlaceHolder}
+						width={"100%"}
+					/>
 				</a>
 			</div>
 			<div className={styles.contentWrapper}>

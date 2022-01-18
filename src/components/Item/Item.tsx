@@ -7,6 +7,9 @@ import { BreadCrumbFill } from "@/layout/ShopLayout/ShopLayout";
 import { EItemActionType } from "@/common/Item";
 import { useDispatch } from "react-redux";
 import { notification } from "antd";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImagePlaceHolder from "@/asset/icon/ImagePlaceholder.png";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 interface IItemProps {
 	image: string;
@@ -51,7 +54,14 @@ const Item: React.FC<IItemProps> = ({
 		<div className={styles.itemContainer}>
 			<div className={styles.item}>
 				<div className={styles.imageContainer} onClick={() => history.push("/item/" + id)}>
-					<img src={image} alt="The item" className={styles.image} />
+					<LazyLoadImage
+						src={image}
+						alt="The item"
+						className={styles.image}
+						effect="blur"
+						placeholderSrc={ImagePlaceHolder}
+						width={"100%"}
+					/>
 				</div>
 				<div className={styles.icons}>
 					<HeartOutlined className={styles.icon} />

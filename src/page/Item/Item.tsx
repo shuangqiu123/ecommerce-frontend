@@ -12,6 +12,9 @@ import { useDispatch } from "react-redux";
 import { EItemActionType } from "@/common/Item";
 import { IItemDisplay } from "@/interface/Item";
 import Error from "@/components/Error";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImagePlaceHolder from "@/asset/icon/ImagePlaceholder.png";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 
 const ItemPage: React.FC = () => {
@@ -67,7 +70,12 @@ const ItemPage: React.FC = () => {
 				>
 					{item?.image.split(";").map((value, key) => (
 						<div className={styles.imageWrapper} key={key}>
-							<img src={value} className={styles.image} />
+							<LazyLoadImage
+								src={value}
+								className={styles.image}
+								effect="blur"
+								placeholderSrc={ImagePlaceHolder}
+							/>
 						</div>
 					))}
 				</Carousel>
