@@ -28,6 +28,7 @@ const Header: React.FC<IHeaderProps> = ({
 	const [up, down, top] = useScroll();
 	const [viewport] = useViewport();
 	const count = useSelector(({ item }: IStoreState) => item.cartItems.length);
+	const saveCount = useSelector(({ item }: IStoreState) => item.savedItems.length);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const history = useHistory();
 
@@ -102,9 +103,17 @@ const Header: React.FC<IHeaderProps> = ({
 					<a href="/">
 						<img src={logo} className={styles.logo} alt="Website Logo" />
 					</a>
-					<div>
-						<HeartOutlined className={styles.bottomHeaderIcon}/>
-						<Badge count={count} offset={[-28, 32]} size="small" color="blue"><ShoppingOutlined className={styles.bottomHeaderIcon} onClick={() => history.push("/cart")}/></Badge>
+					<div className={styles.icons}>
+						<div className={styles.bottomHeaderIconContainer}>
+							<Badge count={saveCount} offset={[-5, 24]} size="small" color="blue">
+								<HeartOutlined className={styles.bottomHeaderIcon}/>
+							</Badge>
+						</div>
+						<div className={styles.bottomHeaderIconContainer} onClick={() => history.push("/cart")}>
+							<Badge count={count} offset={[-1, 24]} size="small" color="blue">
+								<ShoppingOutlined className={styles.bottomHeaderIcon} />
+							</Badge>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -182,8 +191,16 @@ const Header: React.FC<IHeaderProps> = ({
 									</a>
 								)}
 							</Dropdown>
-							<HeartOutlined className={styles.topHeaderIcon}/>
-							<Badge count={count} size="small" offset={[-44, 32]} color="blue"><ShoppingOutlined className={styles.topHeaderIcon} onClick={() => history.push("/cart")}/></Badge>
+							<div className={styles.topHeaderIconContainer}>
+								<Badge count={saveCount} offset={[-3, 24]} size="small" color="blue">
+									<HeartOutlined className={styles.topHeaderIcon}/>
+								</Badge>
+							</div>
+							<div className={styles.topHeaderIconContainer} onClick={() => history.push("/cart")}>
+								<Badge count={count} size="small" color="blue" offset={[-1, 24]}>
+									<ShoppingOutlined className={styles.topHeaderIcon} />
+								</Badge>
+							</div>
 						</div>
 					</div>
 				</div>

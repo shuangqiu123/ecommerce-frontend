@@ -36,4 +36,38 @@ const setCart = (items: IItemLocalStorage[] | undefined): void => {
 	setItem("/demostore/cart", items);
 };
 
-export { addItemIntoCart, getItemsFromCart, removeItemFromCart, setCart };
+const saveItemToSave = (id: string): string[] => {
+	const items: string[] | null = getItem("/demostore/save");
+	if (!items) {
+		setItem("/demostore/save", [id]);
+		return [];
+	}
+	for (const item of items) {
+		if (item === id) {
+			return items;
+		}
+	}
+	const newItems = [...items, id];
+	setItem("/demostore/save", newItems);
+	return newItems;
+};
+
+const removeItemFromSave = (id: string): string[] => {
+	const items: string[] | null = getItem("/demostore/save");
+	if (!items) {
+		return [];
+	}
+	const newItems = items.filter(itemId => id !== itemId);
+	setItem("/demostore/save", newItems);
+	return newItems;
+};
+
+const getItemFromSave = (): string[] => {
+	const items: string[] | null = getItem("/demostore/save");
+	if (!items) {
+		return [];
+	}
+	return items;
+};
+
+export { addItemIntoCart, getItemsFromCart, removeItemFromCart, setCart, saveItemToSave, removeItemFromSave, getItemFromSave };

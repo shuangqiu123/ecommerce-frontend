@@ -3,6 +3,11 @@ import React from "react";
 import styles from "./Item.less";
 import { InputNumber } from "antd";
 import { useHistory } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImagePlaceHolder from "@/asset/icon/ImagePlaceholder.png";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import { EItemActionType } from "@/common/Item";
+import { useDispatch } from "react-redux";
 
 interface IItemProps {
 	checkout?: boolean;
@@ -28,11 +33,27 @@ const Item: React.FC<IItemProps> = ({
 	onChange
 }) => {
 	const history = useHistory();
+	const dispatch = useDispatch();
+
+	const saveItem = () => {
+		dispatch({
+			type: EItemActionType.saveItem,
+			payload: id
+		});
+		onChange(-1, id);
+	};
+	
 	return (
 		<div className={styles.itemContainer}>
 			<div className={styles.imageWrapper}>
 				<a onClick={() => history.push("/item/" + id)}>
-					<img src={image} alt="The item" className={styles.image} />
+					<LazyLoadImage
+						src={image}
+						className={styles.image}
+						effect="blur"
+						placeholderSrc={ImagePlaceHolder}
+						width={"100%"}
+					/>
 				</a>
 			</div>
 			<div className={styles.contentWrapper}>
@@ -59,7 +80,7 @@ const Item: React.FC<IItemProps> = ({
 				</div>
 
 				<div className={styles.linkContainer}>
-					{!checkout && <span className={styles.link} onClick={()=>null}>Save for later</span>}
+					{!checkout && <span className={styles.link} onClick={saveItem}>Save for later</span>}
 					{!checkout && <span className={styles.link} onClick={() => onChange(-1, id)}>Remove</span>}
 				</div>
 			</div>
