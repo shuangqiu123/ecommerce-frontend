@@ -40,7 +40,8 @@ interface IItemDisplay {
 }
 
 interface IItemStoreState {
-	cartItems: IItemLocalStorage[]
+	cartItems: IItemLocalStorage[];
+	savedItems: string[];
 }
 
 enum Sort {

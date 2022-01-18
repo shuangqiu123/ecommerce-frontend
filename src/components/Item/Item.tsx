@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Item.less";
 import HeartOutlined from "@ant-design/icons/HeartOutlined";
+import HeartFilled from "@ant-design/icons/HeartFilled";
 import ShoppingOutlined from "@ant-design/icons/ShoppingOutlined";
 import { useHistory } from "react-router-dom";
 import { BreadCrumbFill } from "@/layout/ShopLayout/ShopLayout";
 import { EItemActionType } from "@/common/Item";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImagePlaceHolder from "@/asset/icon/ImagePlaceholder.png";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { IStoreState } from "@/interface/Redux";
 
 interface IItemProps {
 	image: string;
@@ -31,7 +33,19 @@ const Item: React.FC<IItemProps> = ({
 	breadcrumb
 }) => {
 	const history = useHistory();
+	const savedItems = useSelector(({ item }: IStoreState) => item.savedItems);
+	const [saved, setSaved] = useState<boolean>(false);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		for (const index of savedItems) {
+			if (index === id) {
+				setSaved(true);
+				return;
+			}
+		}
+		setSaved(false);
+	}, [id, savedItems]);
 
 	const addToCartOnClick = () => {
 		if (num === 0) {
@@ -50,6 +64,20 @@ const Item: React.FC<IItemProps> = ({
 		});
 	};
 
+	const saveItem = () => {
+		dispatch({
+			type: EItemActionType.saveItem,
+			payload: id
+		});
+	};
+
+	const removeSaveItem = () => {
+		dispatch({
+			type: EItemActionType.removeSaveItem,
+			payload: id
+		});
+	};
+
 	return (
 		<div className={styles.itemContainer}>
 			<div className={styles.item}>
@@ -64,7 +92,8 @@ const Item: React.FC<IItemProps> = ({
 					/>
 				</div>
 				<div className={styles.icons}>
-					<HeartOutlined className={styles.icon} />
+					{!saved ? <HeartOutlined className={styles.icon} onClick={saveItem}/> :
+							<HeartFilled className={styles.icon} onClick={removeSaveItem}/>}
 					<ShoppingOutlined className={styles.icon} onClick={addToCartOnClick} />
 				</div>
 				<div className={styles.click} onClick={() => history.push("/item/" + id)}>

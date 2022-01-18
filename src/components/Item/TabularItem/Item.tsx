@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImagePlaceHolder from "@/asset/icon/ImagePlaceholder.png";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { EItemActionType } from "@/common/Item";
+import { useDispatch } from "react-redux";
 
 interface IItemProps {
 	checkout?: boolean;
@@ -31,6 +33,16 @@ const Item: React.FC<IItemProps> = ({
 	onChange
 }) => {
 	const history = useHistory();
+	const dispatch = useDispatch();
+
+	const saveItem = () => {
+		dispatch({
+			type: EItemActionType.saveItem,
+			payload: id
+		});
+		onChange(-1, id);
+	};
+	
 	return (
 		<div className={styles.itemContainer}>
 			<div className={styles.imageWrapper}>
@@ -68,7 +80,7 @@ const Item: React.FC<IItemProps> = ({
 				</div>
 
 				<div className={styles.linkContainer}>
-					{!checkout && <span className={styles.link} onClick={()=>null}>Save for later</span>}
+					{!checkout && <span className={styles.link} onClick={saveItem}>Save for later</span>}
 					{!checkout && <span className={styles.link} onClick={() => onChange(-1, id)}>Remove</span>}
 				</div>
 			</div>

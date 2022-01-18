@@ -2,7 +2,7 @@ import { EItemActionType } from "@/common/Item";
 import { IItemBatchPostRequest, IItemDisplay, IItemLocalStorage, IItemMetadata } from "@/interface/Item";
 import { IAction } from "@/interface/Redux";
 import { batchGetItem, getItemById, getItemsById } from "@/service/Item";
-import { addItemIntoCart, getItemsFromCart, removeItemFromCart, setCart } from "@/util/item";
+import { addItemIntoCart, getItemsFromCart, removeItemFromCart, removeItemFromSave, saveItemToSave, setCart } from "@/util/item";
 import { IResponse } from "@/util/request";
 import { call, ForkEffect, put, takeEvery } from "@redux-saga/core/effects";
 import { notification } from "antd";
@@ -112,6 +112,24 @@ function* updateCartEffect({ payload, callback }: IAction<IItemLocalStorage>) {
 	});
 }
 
+function* saveItemEffect({ payload, callback }: IAction<string>) {
+	if (!payload) return;
+	const items: string[] = yield call(saveItemToSave, payload);
+	yield put({
+		type: EItemActionType.setSave,
+		payload: items
+	});
+}
+
+function* removeSaveItemEffect({ payload, callback }: IAction<string>) {
+	if (!payload) return;
+	const items: string[] = yield call(removeItemFromSave, payload);
+	yield put({
+		type: EItemActionType.setSave,
+		payload: items
+	});
+}
+
 export default function* watch(): Generator<ForkEffect<never>, void, unknown> {
 	yield takeEvery(EItemActionType.batchGetItems, batchGetItemEffect);
 	yield takeEvery(EItemActionType.getItemById, getItemByIdEffect);
@@ -119,4 +137,6 @@ export default function* watch(): Generator<ForkEffect<never>, void, unknown> {
 	yield takeEvery(EItemActionType.getItemsFromCart, getItemsFromCartEffect);
 	yield takeEvery(EItemActionType.refreshCart, refreshCartEffect);
 	yield takeEvery(EItemActionType.updateCartItem, updateCartEffect);
+	yield takeEvery(EItemActionType.saveItem, saveItemEffect);
+	yield takeEvery(EItemActionType.removeSaveItem, removeSaveItemEffect);
 }

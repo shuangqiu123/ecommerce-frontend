@@ -28,6 +28,7 @@ const Header: React.FC<IHeaderProps> = ({
 	const [up, down, top] = useScroll();
 	const [viewport] = useViewport();
 	const count = useSelector(({ item }: IStoreState) => item.cartItems.length);
+	const saveCount = useSelector(({ item }: IStoreState) => item.savedItems.length);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const history = useHistory();
 
@@ -104,7 +105,9 @@ const Header: React.FC<IHeaderProps> = ({
 					</a>
 					<div className={styles.icons}>
 						<div className={styles.bottomHeaderIconContainer}>
-							<HeartOutlined className={styles.bottomHeaderIcon}/>
+							<Badge count={saveCount} offset={[-5, 24]} size="small" color="blue">
+								<HeartOutlined className={styles.bottomHeaderIcon}/>
+							</Badge>
 						</div>
 						<div className={styles.bottomHeaderIconContainer} onClick={() => history.push("/cart")}>
 							<Badge count={count} offset={[-1, 24]} size="small" color="blue">
@@ -189,7 +192,9 @@ const Header: React.FC<IHeaderProps> = ({
 								)}
 							</Dropdown>
 							<div className={styles.topHeaderIconContainer}>
-								<HeartOutlined className={styles.topHeaderIcon}/>
+								<Badge count={saveCount} offset={[-3, 24]} size="small" color="blue">
+									<HeartOutlined className={styles.topHeaderIcon}/>
+								</Badge>
 							</div>
 							<div className={styles.topHeaderIconContainer} onClick={() => history.push("/cart")}>
 								<Badge count={count} size="small" color="blue" offset={[-1, 24]}>
