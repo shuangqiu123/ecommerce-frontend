@@ -25,6 +25,7 @@ const Checkout: React.FC = () => {
 	const [items, setItems] = useState<IItemDisplay[]>([]);
 	const [disable, setDisable] = useState<boolean>(false);
 	const [viewOnly, setViewOnly] = useState<boolean>(true);
+	const [shippingAddress, setShippingAddress] = useState<IOrderShipping>();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	
 	useEffect(() => {
@@ -45,6 +46,7 @@ const Checkout: React.FC = () => {
 				setItems(response.items);
 				setPrice(response.price);
 				setViewOnly(response.viewOnly);
+				setShippingAddress(response.shippingAddress);
 				if (response.viewOnly) {
 					setDisable(true);
 				}
@@ -114,12 +116,22 @@ const Checkout: React.FC = () => {
 	const handleCancel = () => {
 		setIsModalVisible(false);
 	};
+
+	const viewOnlyDeliveryAddress = (
+		<div>
+			<p>{shippingAddress?.receiverName}</p>
+			<p>{shippingAddress?.receiverAddress}</p>
+			<p>{`${shippingAddress?.receiverCity} ${shippingAddress?.receiverState} ${shippingAddress?.receiverZip}`}</p>
+		</div>
+	);
+
 	const checkout = (
 		<div className={styles.container}>
 			{!viewOnly && <Prompt message={"Are you sure you want to leave? Your order will be saved."}/>}
 			<div className={styles.form}>
 				<h2 className={styles.title}>Delivery Address</h2>
-				<Form
+				{viewOnly && viewOnlyDeliveryAddress}
+				{!viewOnly && <Form
 					layout={"vertical"}
 					form={form}
 					validateTrigger="onBlur"
@@ -200,15 +212,15 @@ const Checkout: React.FC = () => {
 							disabled={disable}
 						/>
 					</Form.Item>
-					{!viewOnly &&<Form.Item name="remember" valuePropName="checked" >
+					<Form.Item name="remember" valuePropName="checked" >
 						<div className={styles.linkContainer}>
 							<Checkbox>Save the information for a quicker checkout</Checkbox>
 						</div>
-					</Form.Item>}
-					{!viewOnly && <Form.Item className={styles.button}>
+					</Form.Item>
+					<Form.Item className={styles.button}>
 						<Button name="Check Out Now" onClick={checkoutOnClick} />
-					</Form.Item>}
-				</Form>
+					</Form.Item>
+				</Form>}
 			</div>
 			<div className={styles.order}>
 				<h1 className={styles.title}>
