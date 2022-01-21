@@ -14,6 +14,7 @@ interface IOrderGetResponse {
 	items: IItemDisplay[];
 	price: number;
 	viewOnly: boolean;
+	shippingAddress?: IOrderShipping;
 }
 
 interface IOrderCompletionRequest {
